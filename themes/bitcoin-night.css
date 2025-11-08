@@ -1,0 +1,265 @@
+/**
+ * Bitcoin Night Theme for Reveal.js
+ * Based on 'night' + custom Bitcoin network background
+ */
+
+:root {
+  --r-background-color: #0d1117;
+  --r-main-color: #d9e0e7;
+  --r-heading-color: #f7931a;
+  --r-link-color: #01BFFF;
+  --r-link-color-hover: #ffb347;
+  --r-code-background-color: #161b22;
+  --r-code-color: #ffb347;
+  --r-selection-background-color: #f7931a;
+}
+
+/* ---- Background with layered filigree ---- */
+.reveal {
+  background-color: var(--r-background-color);
+  background-image:
+    url("bg-bitcoin-network.svg"),
+    url("https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin_Logo.svg");
+  background-repeat: repeat, no-repeat;
+  background-size: 400px, 200px;
+  background-position: center center;
+  background-blend-mode: overlay;
+  color: var(--r-main-color);
+}
+
+/* Optional subtle overlay grid for extra texture */
+.reveal::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 100px 100px;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ---- Base font size ---- */
+.reveal {
+  font-size: 27px;
+  font-family: 'Courier New', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+/* ---- Text styles ---- */
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+  color: var(--r-heading-color);
+  text-shadow: 0 0 10px rgba(247, 147, 26, 0.35);
+  font-weight: bold;
+  line-height: 1.2;
+  margin-bottom: 0.8em;
+  font-family: 'Courier New', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+.reveal h1 {
+  font-size: 1.75em;
+  margin-bottom: 0.5em;
+}
+
+.reveal h2 {
+  font-size: 1.25em;
+  margin-bottom: 0.6em;
+}
+
+.reveal h3 {
+  font-size: 1em;
+  margin-bottom: 0.5em;
+}
+
+.reveal h4 {
+  font-size: 0.8em;
+  margin-bottom: 0.4em;
+}
+
+.reveal p,
+.reveal li,
+.reveal td,
+.reveal th {
+  color: var(--r-main-color);
+  font-size: 0.85em;
+  line-height: 1.6;
+  font-family: 'Courier New', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+.reveal p {
+  margin-bottom: 1em;
+}
+
+.reveal ul,
+.reveal ol {
+  margin-left: 1.5em;
+  margin-bottom: 1em;
+}
+
+.reveal li {
+  margin-bottom: 0.8em;
+  font-size: 0.85em;
+  line-height: 1.6;
+  font-family: 'Courier New', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+.reveal a {
+  color: var(--r-link-color);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(1, 191, 255, 0.3);
+  transition: color 0.15s ease;
+}
+
+.reveal a:hover {
+  color: var(--r-link-color-hover);
+  border-bottom-color: rgba(255, 179, 71, 0.4);
+}
+
+.reveal code {
+  background: var(--r-code-background-color);
+  color: var(--r-code-color);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: 'Courier New', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.75em;
+}
+
+.reveal pre {
+  background: var(--r-code-background-color);
+  color: var(--r-code-color);
+  padding: 20px 24px;
+  border-radius: 8px;
+  font-family: 'Courier New', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  font-size: 0.7em;
+  line-height: 1.5;
+  margin: 1em 0;
+}
+
+.reveal pre code {
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+}
+
+.reveal ::selection {
+  background-color: var(--r-selection-background-color);
+  color: var(--r-background-color);
+}
+
+.reveal ::-moz-selection {
+  background-color: var(--r-selection-background-color);
+  color: var(--r-background-color);
+}
+
+/* ---- Controls ---- */
+.reveal .controls {
+  color: var(--r-heading-color);
+}
+
+.reveal .progress {
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--r-heading-color);
+}
+
+/* ---- Footer watermark ---- */
+.reveal::after {
+  content: "Bitcoin · Peer-to-Peer · Blocks · Transactions";
+  position: fixed;
+  bottom: 10px;
+  right: 20px;
+  font-size: 0.8em;
+  color: rgba(255, 255, 255, 0.15);
+  letter-spacing: 0.1em;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* ---- Slide styles ---- */
+.reveal .slides section {
+  text-align: left;
+  padding: 2em 3em;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.reveal .slides section.center {
+  text-align: center;
+}
+
+.reveal .slides section.center h1,
+.reveal .slides section.center h2,
+.reveal .slides section.center h3 {
+  text-align: center;
+}
+
+/* ---- Better spacing for content ---- */
+.reveal .slides section>* {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.reveal .slides section>*:first-child {
+  margin-top: 0;
+}
+
+.reveal .slides section>*:last-child {
+  margin-bottom: 0;
+}
+
+/* ---- Blockquote ---- */
+.reveal blockquote {
+  border-left: 6px solid var(--r-heading-color);
+  padding-left: 1.5em;
+  padding-right: 1em;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  color: var(--r-main-color);
+  background: rgba(247, 147, 26, 0.1);
+  border-radius: 4px;
+  font-size: 0.85em;
+  margin: 1.5em 0;
+  line-height: 1.6;
+  font-family: 'Courier New', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+/* ---- Table styles ---- */
+.reveal table {
+  color: var(--r-main-color);
+  font-size: 0.75em;
+  margin: 1.5em 0;
+  font-family: 'Courier New', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+.reveal table th {
+  background: rgba(247, 147, 26, 0.2);
+  color: var(--r-heading-color);
+  padding: 0.8em 1em;
+  font-size: 0.85em;
+  font-weight: bold;
+}
+
+.reveal table td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.6em 1em;
+}
+
+/* ---- Strong and emphasis ---- */
+.reveal strong {
+  color: var(--r-heading-color);
+  font-weight: bold;
+}
+
+.reveal em {
+  font-style: italic;
+}

@@ -1,0 +1,25 @@
+{
+    "name": "workshops-revealjs",
+    "version": "1.0.0",
+    "description": "Présentations Reveal.js pour GitHub Pages",
+    "main": "index.html",
+    "scripts": {
+        "start": "live-server --port=8080 --open=/index.html --watch=.",
+        "build": "echo 'No build step required for static site'",
+        "deploy": "gh-pages -d ."
+    },
+    "keywords": [
+        "reveal.js",
+        "presentations",
+        "markdown"
+    ],
+    "author": "",
+    "license": "AGPL-3.0",
+    "devDependencies": {
+        "gh-pages": "^6.1.0",
+        "live-server": "^1.2.2"
+    },
+    "dependencies": {
+        "reveal.js": "^5.0.4"
+    }
+}

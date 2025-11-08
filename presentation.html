@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Présentation - Reveal.js</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/theme/night.css" id="theme">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/highlight/monokai.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* Thème Bitcoin Orange - Ajustements du thème Night */
+        .reveal {
+            --r-background-color: #191919;
+            --r-main-font: 'Courier New', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            --r-main-font-size: 27px;
+            --r-main-color: #e8e8e8;
+            --r-block-margin: 20px;
+            --r-heading-margin: 0 0 20px 0;
+            --r-heading-font: 'Courier New', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            --r-heading-color: #f7931a;
+            --r-heading-line-height: 1.2;
+            --r-heading-letter-spacing: normal;
+            --r-heading-text-transform: none;
+            --r-heading-text-shadow: 0 0 10px rgba(247, 147, 26, 0.35);
+            --r-heading-font-weight: bold;
+            --r-heading1-text-shadow: 0 0 10px rgba(247, 147, 26, 0.35);
+            --r-heading1-size: 2.5em;
+            --r-heading2-size: 2.5em;
+            --r-heading3-size: 2em;
+            --r-heading4-size: 1.6em;
+            --r-code-font: 'Courier New', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            --r-link-color: #01BFFF;
+            --r-link-color-hover: #ffb347;
+            --r-selection-background-color: #f7931a;
+            --r-selection-color: #191919;
+        }
+
+        .reveal .controls {
+            color: #f7931a;
+        }
+
+        .reveal .progress {
+            background: rgba(0, 0, 0, 0.2);
+            color: #f7931a;
+        }
+
+        .reveal h1 {
+            color: #ffb347;
+            text-shadow: 0 0 10px rgba(255, 179, 71, 0.35);
+        }
+
+        .reveal h2 {
+            color: #d67a0a;
+            text-shadow: 0 0 10px rgba(214, 122, 10, 0.35);
+        }
+
+        .reveal h3,
+        .reveal h4,
+        .reveal h5,
+        .reveal h6 {
+            color: #f7931a;
+            text-shadow: 0 0 10px rgba(247, 147, 26, 0.35);
+        }
+
+        /* Date sur la première slide */
+        .reveal section:first-of-type h1+p {
+            color: rgba(217, 224, 231, 0.5);
+            font-family: 'Courier New', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9em;
+        }
+
+        .reveal a {
+            color: #01BFFF;
+        }
+
+        .reveal a:hover {
+            color: #ffb347;
+        }
+
+        .reveal code {
+            background: #2a2a2a;
+            color: #ffb347;
+        }
+
+        .reveal pre {
+            background: #2a2a2a;
+            color: #ffb347;
+        }
+
+        .reveal ::selection {
+            background-color: #f7931a;
+            color: #191919;
+        }
+
+        .reveal ::-moz-selection {
+            background-color: #f7931a;
+            color: #191919;
+        }
+
+        .reveal blockquote {
+            border-left: 4px solid #f7931a;
+            background: rgba(247, 147, 26, 0.1);
+        }
+
+        .reveal table th {
+            background: rgba(247, 147, 26, 0.2);
+            color: #f7931a;
+        }
+
+        .reveal strong {
+            color: #f7931a;
+        }
+
+        /* Grille de fond identique à la page d'accueil */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+            background-size: 100px 100px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Titre de la présentation en haut des slides */
+        .presentation-title {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.85em;
+            letter-spacing: 0.1em;
+            pointer-events: none;
+            z-index: 99;
+            color: rgba(247, 147, 26, 0.6);
+            font-family: 'Courier New', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+        }
+
+        .presentation-title .separator {
+            color: rgba(247, 147, 26, 0.6);
+        }
+
+        /* Filigrane Creative Commons sur les slides */
+        .cc-watermark {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.95em;
+            letter-spacing: 0.1em;
+            pointer-events: none;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+            padding: 8px 16px;
+        }
+
+        .cc-watermark img {
+            height: 1.4em;
+            width: auto;
+            opacity: 0.6;
+            filter: brightness(0) saturate(100%) invert(60%) sepia(95%) saturate(2000%) hue-rotate(0deg) brightness(1) contrast(1.1);
+        }
+
+        .cc-watermark span {
+            color: rgba(247, 147, 26, 0.6);
+            font-family: 'Courier New', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        }
+
+        .cc-watermark .separator {
+            color: rgba(247, 147, 26, 0.6);
+            margin: 0 0.5em;
+        }
+
+        .controls-container {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .back-button {
+            background: rgba(247, 147, 26, 0.8);
+            color: white;
+            padding: 10px;
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 18px;
+            transition: background 0.3s;
+            border: 1px solid rgba(247, 147, 26, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+        }
+
+        .back-button i {
+            font-size: 18px;
+        }
+
+        .back-button:hover {
+            background: rgba(247, 147, 26, 1);
+            border-color: rgba(247, 147, 26, 0.5);
+        }
+
+        .fullscreen-button {
+            background: rgba(247, 147, 26, 0.8);
+            color: white;
+            padding: 10px;
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 18px;
+            transition: background 0.3s;
+            border: 1px solid rgba(247, 147, 26, 0.3);
+            cursor: pointer;
+            font-family: 'Courier New', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+        }
+
+        .fullscreen-button i {
+            font-size: 18px;
+        }
+
+        .fullscreen-button:hover {
+            background: rgba(247, 147, 26, 1);
+            border-color: rgba(247, 147, 26, 0.5);
+        }
+
+        .first-slide-button {
+            background: rgba(247, 147, 26, 0.8);
+            color: white;
+            padding: 10px;
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 18px;
+            transition: background 0.3s;
+            border: 1px solid rgba(247, 147, 26, 0.3);
+            cursor: pointer;
+            font-family: 'Courier New', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+        }
+
+        .first-slide-button i {
+            font-size: 18px;
+        }
+
+        .first-slide-button:hover {
+            background: rgba(247, 147, 26, 1);
+            border-color: rgba(247, 147, 26, 0.5);
+        }
+
+        /* Logo BIP-21 en haut à droite sur les slides */
+        .reveal::after {
+            content: "";
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            width: 70px;
+            height: 70px;
+            padding: 0.5em;
+            background-image: url("themes/logo-bip-21.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            z-index: 100;
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        /* Logo be-BOP en haut à gauche pour la présentation be-bop */
+        .logo-be-bop-container {
+            position: fixed;
+            top: 10px;
+            left: 20px;
+            width: 200px;
+            height: 80px;
+            padding: 1em 1.2em;
+            background-color: rgba(0, 50, 100, 0.6);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 100, 200, 0.4);
+            z-index: 100;
+            pointer-events: none;
+            opacity: 0.8;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-be-bop-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* Indicateur de slide */
+        .slide-number {
+            background: rgba(247, 147, 26, 0.8);
+            color: white;
+            padding: 10px 12px;
+            min-width: 40px;
+            width: auto;
+            height: 40px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-family: 'Courier New', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            border: 1px solid rgba(247, 147, 26, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            text-align: center;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="controls-container">
+        <a href="index.html" class="back-button" title="Accueil"><i class="fa-solid fa-house"></i></a>
+        <button class="first-slide-button" id="first-slide-button" title="Première slide"><i
+                class="fa-solid fa-backward-step"></i></button>
+        <div class="slide-number" id="slide-number">1 / 1</div>
+        <button class="fullscreen-button" id="fullscreen-button" title="Plein écran"><i class="fa-solid fa-expand"
+                id="fullscreen-icon"></i></button>
+    </div>
+    <div class="cc-watermark">
+        <img src="themes/CC-logo.svg" alt="Creative Commons">
+        <span class="separator">|</span>
+        <span>@marsu-dev</span>
+    </div>
+
+    <div class="reveal">
+        <div class="slides" id="slides-container">
+            <section>
+                <h1>Chargement...</h1>
+                <p>Chargement de la présentation...</p>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/markdown/markdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/notes/notes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/highlight/highlight.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
+
+    <script>
+        // Récupérer le fichier depuis l'URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const filePath = urlParams.get('file');
+
+        // Clé pour le localStorage basée sur le fichier
+        const storageKey = filePath ? `reveal-slide-${filePath}` : 'reveal-slide-default';
+
+        // Changer le logo selon la présentation
+        if (filePath && filePath.includes('be-bop')) {
+            document.querySelector('.reveal').classList.add('logo-be-bop');
+            // Créer la div pour le logo be-bop
+            const logoContainer = document.createElement('div');
+            logoContainer.className = 'logo-be-bop-container';
+            const logoImg = document.createElement('img');
+            logoImg.src = 'themes/logo-be-bop.svg';
+            logoImg.alt = 'be-BOP';
+            logoContainer.appendChild(logoImg);
+            document.body.appendChild(logoContainer);
+        }
+
+        // Gestion du mode plein écran
+        const fullscreenButton = document.getElementById('fullscreen-button');
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.error('Erreur lors de l\'activation du mode plein écran:', err);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        function updateFullscreenButton() {
+            const icon = document.getElementById('fullscreen-icon');
+            if (document.fullscreenElement) {
+                icon.className = 'fa-solid fa-compress';
+            } else {
+                icon.className = 'fa-solid fa-expand';
+            }
+        }
+
+        fullscreenButton.addEventListener('click', toggleFullscreen);
+        document.addEventListener('fullscreenchange', updateFullscreenButton);
+
+        // Bouton pour aller à la première slide
+        const firstSlideButton = document.getElementById('first-slide-button');
+        function goToFirstSlide() {
+            if (typeof Reveal !== 'undefined' && Reveal.isReady()) {
+                Reveal.slide(0);
+            }
+        }
+        firstSlideButton.addEventListener('click', goToFirstSlide);
+
+        if (!filePath) {
+            document.getElementById('slides-container').innerHTML = `
+                <section>
+                    <h1>Erreur</h1>
+                    <p>Aucun fichier de présentation spécifié.</p>
+                    <p><a href="index.html">Retour à l'accueil</a></p>
+                </section>
+            `;
+            Reveal.initialize({
+                hash: true,
+                controls: true,
+                progress: true,
+                center: true,
+                touch: true,
+                loop: false,
+                transition: 'slide'
+            }).then(() => {
+                // Fonction pour mettre à jour le numéro de slide
+                function updateSlideNumber() {
+                    const currentSlide = Reveal.getIndices();
+                    const totalSlides = Reveal.getTotalSlides();
+                    const slideNumber = currentSlide.h + 1;
+                    document.getElementById('slide-number').textContent = `${slideNumber} / ${totalSlides}`;
+
+                    // Sauvegarder l'index dans localStorage
+                    localStorage.setItem(storageKey, currentSlide.h.toString());
+                }
+
+                // Restaurer la position sauvegardée
+                const savedSlideIndex = localStorage.getItem(storageKey);
+                const slideToLoad = savedSlideIndex ? parseInt(savedSlideIndex, 10) : 0;
+
+                updateSlideNumber();
+                Reveal.on('slidechanged', updateSlideNumber);
+
+                // Aller à la slide sauvegardée ou à la première
+                Reveal.slide(slideToLoad);
+            });
+        } else {
+            // Charger le fichier markdown d'abord
+            fetch(filePath)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Fichier non trouvé');
+                    }
+                    return response.text();
+                })
+                .then(markdown => {
+                    // Extraire le titre de la présentation (premier H1)
+                    const titleMatch = markdown.match(/^#\s+(.+)$/m);
+                    const presentationTitle = titleMatch ? titleMatch[1] : '';
+
+                    // Afficher le titre en haut des slides
+                    if (presentationTitle) {
+                        const titleElement = document.createElement('div');
+                        titleElement.className = 'presentation-title';
+                        titleElement.textContent = presentationTitle;
+                        document.body.appendChild(titleElement);
+                    }
+
+                    // Convertir le markdown en slides Reveal.js
+                    // Les séparateurs de slides sont --- ou ***
+                    const slides = markdown.split(/\n---\n|\n\*\*\*\n/);
+                    const slidesHTML = slides.map(slide => {
+                        const trimmed = slide.trim();
+                        if (!trimmed) return '';
+                        // Convertir le markdown en HTML avec marked.js
+                        const html = marked.parse(trimmed);
+                        return `<section>${html}</section>`;
+                    }).filter(s => s).join('\n');
+
+                    document.getElementById('slides-container').innerHTML = slidesHTML;
+
+                    // Initialiser Reveal.js après avoir chargé le contenu
+                    Reveal.initialize({
+                        hash: true,
+                        controls: true,
+                        progress: true,
+                        center: true,
+                        touch: true,
+                        loop: false,
+                        transition: 'slide',
+                        plugins: [RevealNotes, RevealHighlight]
+                    }).then(() => {
+                        // Activer la coloration syntaxique
+                        if (typeof hljs !== 'undefined') {
+                            document.querySelectorAll('pre code').forEach((block) => {
+                                hljs.highlightElement(block);
+                            });
+                        }
+
+                        // Fonction pour mettre à jour le numéro de slide
+                        function updateSlideNumber() {
+                            const currentSlide = Reveal.getIndices();
+                            const totalSlides = Reveal.getTotalSlides();
+                            const slideNumber = currentSlide.h + 1; // h est l'index horizontal (slide principale)
+                            document.getElementById('slide-number').textContent = `${slideNumber} / ${totalSlides}`;
+
+                            // Sauvegarder l'index dans localStorage
+                            localStorage.setItem(storageKey, currentSlide.h.toString());
+                        }
+
+                        // Restaurer la position sauvegardée
+                        const savedSlideIndex = localStorage.getItem(storageKey);
+                        const slideToLoad = savedSlideIndex ? parseInt(savedSlideIndex, 10) : 0;
+
+                        // Mettre à jour au chargement
+                        updateSlideNumber();
+
+                        // Mettre à jour lors du changement de slide
+                        Reveal.on('slidechanged', updateSlideNumber);
+
+                        // Aller à la slide sauvegardée ou à la première
+                        Reveal.slide(slideToLoad);
+                    });
+                })
+                .catch(error => {
+                    document.getElementById('slides-container').innerHTML = `
+                        <section>
+                            <h1>Erreur</h1>
+                            <p>Impossible de charger le fichier: ${filePath}</p>
+                            <p>${error.message}</p>
+                            <p><a href="index.html">Retour à l'accueil</a></p>
+                        </section>
+                    `;
+                    Reveal.initialize({
+                        hash: true,
+                        controls: true,
+                        progress: true,
+                        center: true,
+                        touch: true,
+                        loop: false,
+                        transition: 'slide'
+                    });
+                });
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ateliers Bitcoin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #0d1117;
+            background-image:
+                url("themes/bg-bitcoin-network.svg"),
+                url("https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin_Logo.svg");
+            background-repeat: repeat, no-repeat;
+            background-size: 400px, 200px;
+            background-position: center center;
+            background-blend-mode: overlay;
+            min-height: 100vh;
+            padding: 2rem;
+            color: #d9e0e7;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+            background-size: 100px 100px;
+            pointer-events: none;
+        }
+
+        #p2p-network {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.5;
+            display: block !important;
+            background: transparent;
+        }
+
+        .cc-watermark {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            font-size: 0.95em;
+            letter-spacing: 0.1em;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5em;
+            padding: 8px 16px;
+            background-color: #0d1117;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .cc-watermark img {
+            height: 1.4em;
+            width: auto;
+            opacity: 0.6;
+            filter: brightness(0) saturate(100%) invert(60%) sepia(95%) saturate(2000%) hue-rotate(0deg) brightness(1) contrast(1.1);
+        }
+
+        .cc-watermark span {
+            color: rgba(247, 147, 26, 0.6);
+        }
+
+        .cc-watermark .separator {
+            color: rgba(247, 147, 26, 0.6);
+            margin: 0 0.5em;
+        }
+
+        .container {
+            max-width: 75%;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            padding-top: 5rem;
+            padding-bottom: 4rem;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            text-align: center;
+            color: #d9e0e7;
+            padding: 1rem;
+            background-color: #0d1117;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin: 0;
+            color: #f7931a;
+            text-shadow: 0 0 10px rgba(247, 147, 26, 0.35);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            color: #d9e0e7;
+        }
+
+        .presentations-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.6rem;
+            margin-top: 2rem;
+        }
+
+        .presentation-card {
+            background: #161b22;
+            border: 1px solid rgba(247, 147, 26, 0.2);
+            border-radius: 10px;
+            padding: 1.6rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+            opacity: 0.8;
+        }
+
+        .presentation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(247, 147, 26, 0.3);
+            border-color: rgba(247, 147, 26, 0.5);
+        }
+
+        .presentation-card .logo {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 0.8rem;
+            background-image: url("themes/logo-bip-21.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.9;
+        }
+
+        .presentation-card .card-header {
+            min-height: 60px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .presentation-card h2 {
+            color: #f7931a;
+            margin: 0;
+            font-size: 1.2rem;
+            text-shadow: 0 0 10px rgba(247, 147, 26, 0.35);
+            line-height: 1.3;
+            flex: 1;
+        }
+
+        .presentation-card p {
+            color: #d9e0e7;
+            line-height: 1.6;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .presentation-card .meta {
+            margin-top: auto;
+            padding-top: 1rem;
+            padding-bottom: 0.2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.85rem;
+            color: rgba(217, 224, 231, 0.6);
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #d9e0e7;
+            padding: 3rem;
+            background: rgba(22, 27, 34, 0.8);
+            border: 1px solid rgba(247, 147, 26, 0.2);
+            border-radius: 12px;
+            margin-top: 2rem;
+        }
+
+        .empty-state h2 {
+            color: #f7931a;
+            margin-bottom: 1rem;
+        }
+
+        .empty-state code {
+            background: rgba(247, 147, 26, 0.1);
+            color: #ffb347;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="p2p-network"></canvas>
+
+    <div class="container">
+        <header>
+            <h1>Ateliers Bitcoin</h1>
+        </header>
+
+        <div class="cc-watermark">
+            <img src="themes/CC-logo.svg" alt="Creative Commons">
+            <span class="separator">|</span>
+            <span>@marsu-dev</span>
+        </div>
+
+        <div class="presentations-grid" id="presentations-grid">
+            <!-- Les présentations seront chargées dynamiquement -->
+        </div>
+
+        <div class="empty-state" id="empty-state" style="display: none;">
+            <h2>Aucune présentation disponible</h2>
+            <p>Ajoutez des fichiers markdown dans le dossier <code>presentations/</code></p>
+        </div>
+    </div>
+
+    <script>
+        // Animation réseau P2P
+        window.addEventListener('DOMContentLoaded', function () {
+            const canvas = document.getElementById('p2p-network');
+            if (!canvas) {
+                console.error('Canvas not found');
+                return;
+            }
+
+            const ctx = canvas.getContext('2d');
+            if (!ctx) {
+                console.error('Canvas context not available');
+                return;
+            }
+
+            // Variables d'état
+            let nodes = [];
+            let animationTime = 0;
+            let lastTime = 0;
+            let rotationAngle = 0;
+            let lightParticles = [];
+            let activeConnections = [];
+
+            // Configuration
+            const rotationSpeed = Math.PI / 60000; // Rotation complète en 2 minutes
+            const nodeCount = 42;
+            const maxConnectionDistance = 400;
+            const nodeRadius = 3;
+            const nodeColor = 'rgba(247, 147, 26, 0.7)';
+            const lightParticleSpeed = 0.3;
+            const targetLightParticles = 21;
+            const lightParticleSpawnRate = 0.15;
+
+            // Initialiser le canvas
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                canvas.style.width = window.innerWidth + 'px';
+                canvas.style.height = window.innerHeight + 'px';
+                initNodes();
+                calculateInitialPositions();
+            }
+
+            // Calculer l'enveloppe convexe (Graham scan simplifié)
+            function calculateConvexHull() {
+                if (nodes.length < 3) return nodes.map((_, i) => i);
+
+                // Trouver le point le plus bas
+                let bottom = 0;
+                for (let i = 1; i < nodes.length; i++) {
+                    if (nodes[i].y < nodes[bottom].y ||
+                        (nodes[i].y === nodes[bottom].y && nodes[i].x < nodes[bottom].x)) {
+                        bottom = i;
+                    }
+                }
+
+                // Trier par angle polaire
+                const sorted = nodes.map((n, i) => ({
+                    i, x: n.x, y: n.y,
+                    angle: Math.atan2(n.y - nodes[bottom].y, n.x - nodes[bottom].x)
+                })).sort((a, b) => a.i === bottom ? -1 : b.i === bottom ? 1 : a.angle - b.angle);
+
+                // Construire l'enveloppe
+                const hull = [sorted[0].i];
+                for (let i = 1; i < sorted.length; i++) {
+                    while (hull.length > 1) {
+                        const p1 = nodes[hull[hull.length - 2]];
+                        const p2 = nodes[hull[hull.length - 1]];
+                        const p3 = nodes[sorted[i].i];
+                        const cross = (p2.x - p1.x) * (p3.y - p1.y) - (p2.y - p1.y) * (p3.x - p1.x);
+                        if (cross <= 0) hull.pop(); else break;
+                    }
+                    hull.push(sorted[i].i);
+                }
+                return hull;
+            }
+
+            // Calculer les connexions actives (équilibrées, 2-3 par nœud)
+            function calculateActiveConnections() {
+                const connectionCount = new Array(nodes.length).fill(0);
+                const possibleConnections = [];
+                activeConnections = [];
+
+                // Calculer l'enveloppe convexe
+                const convexHull = calculateConvexHull();
+
+                // D'abord, connecter tous les sommets de l'enveloppe convexe entre eux
+                for (let i = 0; i < convexHull.length; i++) {
+                    const from = convexHull[i];
+                    const to = convexHull[(i + 1) % convexHull.length];
+                    const dx = nodes[from].x - nodes[to].x;
+                    const dy = nodes[from].y - nodes[to].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    activeConnections.push({ from, to, distance });
+                    connectionCount[from]++;
+                    connectionCount[to]++;
+                }
+
+                // Identifier toutes les connexions possibles
+                for (let i = 0; i < nodes.length; i++) {
+                    for (let j = i + 1; j < nodes.length; j++) {
+                        const alreadyConnected = activeConnections.some(conn =>
+                            (conn.from === i && conn.to === j) || (conn.from === j && conn.to === i)
+                        );
+                        if (alreadyConnected) continue;
+
+                        const dx = nodes[i].x - nodes[j].x;
+                        const dy = nodes[i].y - nodes[j].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        if (distance < maxConnectionDistance) {
+                            possibleConnections.push({ from: i, to: j, distance });
+                        }
+                    }
+                }
+
+                // Fonction pour obtenir le score d'une connexion (priorité aux nœuds avec moins de connexions)
+                function getConnectionScore(conn) {
+                    const countFrom = connectionCount[conn.from];
+                    const countTo = connectionCount[conn.to];
+                    const avgCount = (countFrom + countTo) / 2;
+                    // Priorité aux connexions entre nœuds peu connectés
+                    // Plus la distance est petite, mieux c'est
+                    return (3 - avgCount) * 1000 - conn.distance;
+                }
+
+                // Ajouter les connexions en équilibrant (algorithme glouton)
+                // On itère jusqu'à ce que tous les nœuds aient au moins 2 connexions
+                let changed = true;
+                while (changed) {
+                    changed = false;
+
+                    // Trouver les nœuds avec moins de 2 connexions
+                    const nodesNeedingConnections = [];
+                    for (let i = 0; i < nodes.length; i++) {
+                        if (connectionCount[i] < 2) {
+                            nodesNeedingConnections.push(i);
+                        }
+                    }
+
+                    // Si tous les nœuds ont au moins 2 connexions, on peut ajouter des 3èmes
+                    if (nodesNeedingConnections.length === 0) {
+                        // Ajouter des connexions pour atteindre 3 connexions par nœud
+                        const available = possibleConnections.filter(conn =>
+                            !activeConnections.some(ac =>
+                                (ac.from === conn.from && ac.to === conn.to) ||
+                                (ac.from === conn.to && ac.to === conn.from)
+                            ) &&
+                            connectionCount[conn.from] < 3 &&
+                            connectionCount[conn.to] < 3
+                        );
+
+                        if (available.length > 0) {
+                            // Trier par score (recalculé à chaque itération)
+                            available.sort((a, b) => getConnectionScore(b) - getConnectionScore(a));
+                            const best = available[0];
+                            activeConnections.push(best);
+                            connectionCount[best.from]++;
+                            connectionCount[best.to]++;
+                            changed = true;
+                        }
+                    } else {
+                        // Prioriser les nœuds avec moins de connexions
+                        for (const nodeId of nodesNeedingConnections) {
+                            const candidates = possibleConnections.filter(conn =>
+                                !activeConnections.some(ac =>
+                                    (ac.from === conn.from && ac.to === conn.to) ||
+                                    (ac.from === conn.to && ac.to === conn.from)
+                                ) &&
+                                (conn.from === nodeId || conn.to === nodeId) &&
+                                connectionCount[conn.from] < 3 &&
+                                connectionCount[conn.to] < 3
+                            );
+
+                            if (candidates.length > 0) {
+                                // Trier par score (recalculé)
+                                candidates.sort((a, b) => getConnectionScore(b) - getConnectionScore(a));
+                                const best = candidates[0];
+                                activeConnections.push(best);
+                                connectionCount[best.from]++;
+                                connectionCount[best.to]++;
+                                changed = true;
+                                break; // Une connexion à la fois pour rééquilibrer
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Vérifier si le graphe est connexe
+            function isConnected() {
+                if (nodes.length === 0) return false;
+                calculateActiveConnections();
+
+                const adj = new Array(nodes.length).fill(0).map(() => []);
+                activeConnections.forEach(conn => {
+                    adj[conn.from].push(conn.to);
+                    adj[conn.to].push(conn.from);
+                });
+
+                const visited = new Set([0]);
+                const queue = [0];
+                while (queue.length > 0) {
+                    adj[queue.shift()].forEach(n => {
+                        if (!visited.has(n)) {
+                            visited.add(n);
+                            queue.push(n);
+                        }
+                    });
+                }
+                return visited.size === nodes.length;
+            }
+
+            // Calculer les positions initiales pour la rotation
+            function calculateInitialPositions() {
+                const cx = canvas.width / 2;
+                const cy = canvas.height / 2;
+                nodes.forEach(node => {
+                    const dx = node.x - cx;
+                    const dy = node.y - cy;
+                    node.initialDistance = Math.sqrt(dx * dx + dy * dy);
+                    node.initialAngle = Math.atan2(dy, dx);
+                });
+            }
+
+            // Créer une particule lumineuse
+            function spawnLightParticle() {
+                if (activeConnections.length === 0) return;
+                const conn = activeConnections[Math.floor(Math.random() * activeConnections.length)];
+                const dir = Math.random() > 0.5 ? 1 : -1;
+                lightParticles.push({
+                    fromNode: dir > 0 ? conn.from : conn.to,
+                    toNode: dir > 0 ? conn.to : conn.from,
+                    progress: 0,
+                    speed: lightParticleSpeed
+                });
+            }
+
+            // Initialiser les nœuds dans un cercle
+            function initNodes() {
+                nodes = [];
+                const cx = canvas.width / 2;
+                const cy = canvas.height / 2;
+                const radius = Math.sqrt(canvas.width ** 2 + canvas.height ** 2) / 2;
+                const minDist = 80;
+
+                for (let i = 0; i < nodeCount; i++) {
+                    let x, y, valid = false, attempts = 0;
+                    while (!valid && attempts < 100) {
+                        const angle = Math.random() * Math.PI * 2;
+                        const r = Math.sqrt(Math.random()) * radius;
+                        x = cx + Math.cos(angle) * r;
+                        y = cy + Math.sin(angle) * r;
+                        valid = nodes.every(n => {
+                            const dx = x - n.x, dy = y - n.y;
+                            return Math.sqrt(dx * dx + dy * dy) >= minDist;
+                        });
+                        attempts++;
+                    }
+                    if (!valid) {
+                        const angle = Math.random() * Math.PI * 2;
+                        const r = Math.sqrt(Math.random()) * radius;
+                        x = cx + Math.cos(angle) * r;
+                        y = cy + Math.sin(angle) * r;
+                    }
+                    nodes.push({ x, y, vx: 0, vy: 0, initialAngle: 0, initialDistance: 0 });
+                }
+            }
+
+            // Dessiner et animer
+            function draw(currentTime) {
+                if (canvas.width === 0 || canvas.height === 0 || nodes.length === 0) return;
+
+                const deltaTime = lastTime ? (currentTime - lastTime) / 1000 : 0;
+                lastTime = currentTime;
+                rotationAngle += rotationSpeed * deltaTime * 1000;
+                animationTime += deltaTime * 0.5;
+
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                const cx = canvas.width / 2;
+                const cy = canvas.height / 2;
+
+                calculateActiveConnections();
+
+                // Dessiner les connexions
+                activeConnections.forEach(conn => {
+                    const dist = conn.distance;
+                    const baseOpacity = (1 - dist / maxConnectionDistance) * 0.5;
+                    const pulse = Math.sin(animationTime * 1.5 + (dist / maxConnectionDistance) * Math.PI * 2) * 0.12 + 1;
+                    const opacity = Math.max(0.25, Math.min(0.65, baseOpacity * pulse));
+                    ctx.strokeStyle = `rgba(247, 147, 26, ${opacity})`;
+                    ctx.lineWidth = 1;
+                    ctx.lineCap = 'round';
+                    ctx.beginPath();
+                    ctx.moveTo(Math.round(nodes[conn.from].x), Math.round(nodes[conn.from].y));
+                    ctx.lineTo(Math.round(nodes[conn.to].x), Math.round(nodes[conn.to].y));
+                    ctx.stroke();
+                });
+
+                // Dessiner les particules lumineuses
+                lightParticles.forEach(p => {
+                    const from = nodes[p.fromNode], to = nodes[p.toNode];
+                    if (!from || !to) return;
+                    const x = from.x + (to.x - from.x) * p.progress;
+                    const y = from.y + (to.y - from.y) * p.progress;
+                    const grad = ctx.createRadialGradient(x, y, 0, x, y, 8);
+                    grad.addColorStop(0, 'rgba(255, 200, 100, 0.9)');
+                    grad.addColorStop(0.5, 'rgba(247, 147, 26, 0.5)');
+                    grad.addColorStop(1, 'rgba(247, 147, 26, 0)');
+                    ctx.fillStyle = grad;
+                    ctx.beginPath();
+                    ctx.arc(Math.round(x), Math.round(y), 8, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.fillStyle = 'rgba(255, 220, 150, 1)';
+                    ctx.beginPath();
+                    ctx.arc(Math.round(x), Math.round(y), 2, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+
+                // Dessiner les nœuds
+                nodes.forEach(node => {
+                    ctx.fillStyle = nodeColor;
+                    ctx.beginPath();
+                    ctx.arc(Math.round(node.x), Math.round(node.y), nodeRadius, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+
+                // Mettre à jour les particules
+                if (lightParticles.length < targetLightParticles && Math.random() < lightParticleSpawnRate) {
+                    spawnLightParticle();
+                }
+                lightParticles = lightParticles.filter(p => {
+                    p.progress += p.speed * deltaTime;
+                    return p.progress < 1;
+                });
+
+                // Mettre à jour les positions (rotation)
+                nodes.forEach(node => {
+                    const angle = node.initialAngle + rotationAngle;
+                    node.x = cx + Math.cos(angle) * node.initialDistance;
+                    node.y = cy + Math.sin(angle) * node.initialDistance;
+                });
+            }
+
+            // Initialiser et démarrer l'animation
+            setTimeout(() => {
+                resizeCanvas();
+                let attempts = 0;
+                while (!isConnected() && attempts < 10) {
+                    initNodes();
+                    attempts++;
+                }
+                calculateInitialPositions();
+
+                function animate(t) {
+                    draw(t);
+                    requestAnimationFrame(animate);
+                }
+                animate(performance.now());
+            }, 200);
+
+            window.addEventListener('resize', resizeCanvas);
+        });
+
+        // Liste des présentations disponibles
+        // Ajoutez vos présentations ici avec leur nom et description
+        const presentations = [
+            {
+                id: 'bip-21-01-sparrow',
+                title: 'Sparrow Wallet',
+                description: 'Apprenez à créer un wallet, utiliser les passphrases, gérer les comptes, recevoir et envoyer des bitcoins, et maîtriser la sélection de coins.',
+                file: 'presentations/bip-21-01-utilisations-sparrow.md',
+                date: '10 novembre 2025'
+            },
+            {
+                id: 'bip-21-02-multisig',
+                title: 'Wallet Multi-signature',
+                description: 'Créez et gérez un portefeuille multi-signature pour sécuriser vos bitcoins avec plusieurs clés.',
+                file: 'presentations/bip-21-02-wallet-multisig.md',
+                date: '24 novembre 2025'
+            },
+            {
+                id: 'bip-21-03-be-bop',
+                title: 'be-BOP',
+                description: 'Découvrez be-BOP, un logiciel libre pour gérer vos ventes en toute indépendance. Aucune commission, aucune censure.',
+                file: 'presentations/bip-21-03-be-bop.md',
+                date: '04 décembre 2025'
+            },
+            {
+                id: 'bip-21-04-block-transaction',
+                title: 'Blocs & Transactions',
+                description: 'Comprenez la structure des blocs Bitcoin et le processus de validation des transactions sur la blockchain.',
+                file: 'presentations/bip-21-04-block-transaction.md',
+                date: '08 décembre 2025'
+            }
+        ];
+
+        const grid = document.getElementById('presentations-grid');
+        const emptyState = document.getElementById('empty-state');
+
+        if (presentations.length === 0) {
+            emptyState.style.display = 'block';
+        } else {
+            presentations.forEach(presentation => {
+                const card = document.createElement('a');
+                card.href = `presentation.html?file=${encodeURIComponent(presentation.file)}`;
+                card.className = 'presentation-card';
+                card.innerHTML = `
+                    <div class="card-header">
+                        <div class="logo"></div>
+                        <h2>${presentation.title}</h2>
+                    </div>
+                    <p>${presentation.description}</p>
+                    <div class="meta">${presentation.date || ''}</div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+    </script>
+</body>
+
+</html>
