@@ -322,6 +322,23 @@
             object-fit: contain;
         }
 
+        /* Logo Sparrow en haut à gauche pour les présentations Sparrow */
+        .logo-sparrow-container {
+            position: fixed;
+            top: 10px;
+            left: 20px;
+            width: 70px;
+            height: 70px;
+            padding: 0.5em;
+            background-image: url("themes/logo-sparrow.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            z-index: 100;
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
         /* Indicateur de slide */
         .slide-number {
             background: rgba(247, 147, 26, 0.8);
@@ -393,6 +410,11 @@
             logoImg.src = 'themes/logo-be-bop.svg';
             logoImg.alt = 'be-BOP';
             logoContainer.appendChild(logoImg);
+            document.body.appendChild(logoContainer);
+        } else if (filePath && (filePath.includes('sparrow') || filePath.includes('multisig'))) {
+            // Ajouter le logo Sparrow à gauche pour les présentations Sparrow
+            const logoContainer = document.createElement('div');
+            logoContainer.className = 'logo-sparrow-container';
             document.body.appendChild(logoContainer);
         }
 
