@@ -279,8 +279,7 @@
         }
 
         /* Logo BIP-21 en haut à droite sur les slides */
-        .reveal::after {
-            content: "";
+        .logo-bip-21-container {
             position: fixed;
             top: 10px;
             right: 10px;
@@ -292,8 +291,21 @@
             background-repeat: no-repeat;
             background-position: center;
             z-index: 100;
-            pointer-events: none;
             opacity: 0.8;
+            text-decoration: none;
+            border: none;
+            outline: none;
+            display: block;
+            transition: opacity 0.3s;
+        }
+
+        .logo-bip-21-container:hover {
+            opacity: 1;
+        }
+
+        .logo-bip-21-container:focus-visible {
+            outline: 2px solid rgba(247, 147, 26, 0.6);
+            outline-offset: 2px;
         }
 
         /* Logo be-BOP en haut à gauche pour la présentation be-bop */
@@ -306,14 +318,25 @@
             padding: 1em 1.2em;
             background-color: rgba(0, 50, 100, 0.6);
             border-radius: 12px;
-            border: 1px solid rgba(0, 100, 200, 0.4);
+            border: none;
+            outline: none;
             z-index: 100;
-            pointer-events: none;
             opacity: 0.8;
             box-sizing: border-box;
             display: flex;
             align-items: center;
             justify-content: center;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .logo-be-bop-container:hover {
+            opacity: 1;
+        }
+
+        .logo-be-bop-container:focus-visible {
+            outline: 2px solid rgba(0, 100, 200, 0.6);
+            outline-offset: 2px;
         }
 
         .logo-be-bop-container img {
@@ -335,8 +358,21 @@
             background-repeat: no-repeat;
             background-position: center;
             z-index: 100;
-            pointer-events: none;
             opacity: 0.8;
+            text-decoration: none;
+            border: none;
+            outline: none;
+            display: block;
+            transition: opacity 0.3s;
+        }
+
+        .logo-sparrow-container:hover {
+            opacity: 1;
+        }
+
+        .logo-sparrow-container:focus-visible {
+            outline: 2px solid rgba(247, 147, 26, 0.6);
+            outline-offset: 2px;
         }
 
         /* Indicateur de slide */
@@ -400,12 +436,25 @@
         // Clé pour le localStorage basée sur le fichier
         const storageKey = filePath ? `reveal-slide-${filePath}` : 'reveal-slide-default';
 
+        // Créer le logo BIP-21 à droite (toujours présent)
+        const logoBip21 = document.createElement('a');
+        logoBip21.href = 'https://bip-21.fr/';
+        logoBip21.target = '_blank';
+        logoBip21.rel = 'noopener noreferrer';
+        logoBip21.className = 'logo-bip-21-container';
+        logoBip21.title = 'BIP-21 - Bitcoin Île-de-France Partenaires';
+        document.body.appendChild(logoBip21);
+
         // Changer le logo selon la présentation
         if (filePath && filePath.includes('be-bop')) {
             document.querySelector('.reveal').classList.add('logo-be-bop');
-            // Créer la div pour le logo be-bop
-            const logoContainer = document.createElement('div');
+            // Créer le lien pour le logo be-bop
+            const logoContainer = document.createElement('a');
+            logoContainer.href = 'https://be-bop.io/';
+            logoContainer.target = '_blank';
+            logoContainer.rel = 'noopener noreferrer';
             logoContainer.className = 'logo-be-bop-container';
+            logoContainer.title = 'be-BOP';
             const logoImg = document.createElement('img');
             logoImg.src = 'themes/logo-be-bop.svg';
             logoImg.alt = 'be-BOP';
@@ -413,8 +462,12 @@
             document.body.appendChild(logoContainer);
         } else if (filePath && (filePath.includes('sparrow') || filePath.includes('multisig'))) {
             // Ajouter le logo Sparrow à gauche pour les présentations Sparrow
-            const logoContainer = document.createElement('div');
+            const logoContainer = document.createElement('a');
+            logoContainer.href = 'https://www.sparrowwallet.com/';
+            logoContainer.target = '_blank';
+            logoContainer.rel = 'noopener noreferrer';
             logoContainer.className = 'logo-sparrow-container';
+            logoContainer.title = 'Sparrow Wallet';
             document.body.appendChild(logoContainer);
         }
 
