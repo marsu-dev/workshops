@@ -1,116 +1,69 @@
-# Workshops - Reveal.js Presentations
+# Bitcoin Workshops
 
-This repository contains several presentations created with Reveal.js and hosted on GitHub Pages.
+This repository contains Bitcoin workshop presentations created with [Reveal.js](https://revealjs.com/).
 
-## 🚀 Project Structure
+## Presentation Structure
 
-```
-.
-├── index.html              # Homepage listing all presentations
-├── presentation.html       # Template for displaying presentations
-├── presentations/          # Folder containing markdown files
-│   └── example.md         # Example presentation
-└── .github/
-    └── workflows/
-        └── deploy.yml     # GitHub Actions workflow for deploying to Pages
-```
+Presentations are written in Markdown format and stored in the `presentations/` folder. Each presentation is available in multiple languages:
 
-## 📝 Adding a New Presentation
+- `bip-21-01-utilisations-sparrow.{lang}.md`
+- `bip-21-02-wallet-multisig.{lang}.md`
+- `bip-21-03-be-bop.{lang}.md`
+- `bip-21-04-block-transaction.{lang}.md`
 
-1. Create a new markdown file in the `presentations/` folder:
-   ```bash
-   presentations/my-presentation.md
-   ```
+Where `{lang}` can be: `fr`, `en`, `es`, `it`, or `de`.
 
-2. Add the presentation to `index.html`:
-   ```javascript
-   const presentations = [
-       {
-           id: 'my-presentation',
-           title: 'My Presentation',
-           description: 'Description of my presentation',
-           file: 'presentations/my-presentation.md'
-       }
-   ];
-   ```
+### Markdown Slide Structure
 
-3. Use `---` or `***` to separate slides in your markdown file:
-   ```markdown
-   # First slide
-   
-   Content of the first slide
-   
-   ---
-   
-   # Second slide
-   
-   Content of the second slide
-   ```
+Slides are separated using `---` or `***`:
 
-## 🏃 Local Development
+```markdown
+# First Slide Title
 
-### Installation
+Content of the first slide
 
-```bash
-npm install
+---
+
+# Second Slide Title
+
+Content of the second slide
 ```
 
-### Start a local server with hot reload
+Each slide can contain standard Markdown syntax including:
+- Headers (`#`, `##`, `###`)
+- Lists (ordered and unordered)
+- **Bold** and *italic* text
+- Code blocks
+- Images
+- Links
 
-```bash
-npm start
-```
+## Translations
 
-The site will be accessible at `http://localhost:8080` and will automatically reload when you modify files (HTML, CSS, Markdown, etc.).
+This project welcomes translations and improvements in all supported languages. Currently supported languages are:
+- French (`fr`)
+- English (`en`)
+- Spanish (`es`)
+- Italian (`it`)
+- German (`de`)
 
-## 📦 Deployment to GitHub Pages
+### Contributing Translations
 
-### Method 1: GitHub Actions (Recommended)
+To contribute a translation or correct an existing one:
 
-The GitHub Actions workflow is configured in `.github/workflows/deploy.yml`.
+1. Fork this repository
+2. Create a new branch for your changes
+3. Add or update the translation file following the naming convention: `presentation-name.{lang}.md`
+4. Ensure the markdown structure matches the original presentation
+5. Submit a pull request with a clear description of your changes
 
-1. Enable GitHub Pages in the repository settings:
-   - Go to Settings > Pages
-   - Source: GitHub Actions
+Pull requests for new language support, translation corrections, or improvements are greatly appreciated!
 
-2. Push your changes to the `main` or `master` branch:
-   ```bash
-   git add .
-   git commit -m "Add my presentation"
-   git push origin main
-   ```
+## Reveal.js
 
-3. The workflow will automatically trigger and deploy the site.
+These presentations use [Reveal.js](https://revealjs.com/), a framework for creating beautiful presentations using HTML and Markdown.
 
-### Method 2: gh-pages (Alternative)
+For more information about Reveal.js features and Markdown syntax, visit the [official documentation](https://revealjs.com/).
 
-```bash
-npm run deploy
-```
+## License
 
-## 🎨 Customization
-
-### Reveal.js Theme
-
-You can change the theme in `presentation.html`:
-```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/theme/white.css" id="theme">
-```
-
-Available themes: `black`, `white`, `league`, `beige`, `sky`, `night`, `serif`, `simple`, `solarized`, `blood`, `moon`
-
-### Custom Styles
-
-Modify the `<style>` section in `presentation.html` to customize the appearance.
-
-## 📚 Reveal.js Documentation
-
-- [Official Documentation](https://revealjs.com/)
-- [Markdown Syntax](https://revealjs.com/markdown/)
-- [Examples](https://revealjs.com/examples/)
-
-## 📄 License
-
-This project is licensed under the GNU Affero General Public License v3.0 (AGPL-3.0).
-
-See the [LICENSE](LICENSE) file for details, or visit [https://www.gnu.org/licenses/agpl-3.0.html](https://www.gnu.org/licenses/agpl-3.0.html).
+This project is licensed under [AGPL-3.0](https://www.gnu.org/licenses/agpl-3.0.html) and [Creative Commons <i class="fab fa-creative-commons"></i>](https://creativecommons.org/licenses/).

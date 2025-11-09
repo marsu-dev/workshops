@@ -90,6 +90,20 @@
             margin: 0 0.5em;
         }
 
+        .cc-watermark .github-link {
+            color: rgba(247, 147, 26, 0.6);
+            text-decoration: none;
+            font-size: 1.2em;
+            transition: color 0.3s ease, transform 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .cc-watermark .github-link:hover {
+            color: rgba(247, 147, 26, 0.9);
+            transform: scale(1.1);
+        }
+
         .container {
             max-width: 75%;
             margin: 0 auto;
@@ -111,6 +125,45 @@
             background-color: #0d1117;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .language-selector {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 11;
+        }
+
+        .language-select {
+            background: rgba(247, 147, 26, 0.2);
+            color: #d9e0e7;
+            border: 1px solid rgba(247, 147, 26, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Courier New', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            outline: none;
+        }
+
+        .language-select:hover {
+            background: rgba(247, 147, 26, 0.4);
+            border-color: rgba(247, 147, 26, 0.6);
+        }
+
+        .language-select:focus {
+            border-color: rgba(247, 147, 26, 0.8);
+            box-shadow: 0 0 0 2px rgba(247, 147, 26, 0.3);
+        }
+
+        .language-select option {
+            background: #0d1117;
+            color: #d9e0e7;
         }
 
         h1 {
@@ -231,13 +284,26 @@
 
     <div class="container">
         <header>
-            <h1>Ateliers Bitcoin</h1>
+            <div class="language-selector" id="language-selector">
+                <select class="language-select" id="language-select">
+                    <option value="fr">FR</option>
+                    <option value="en">EN</option>
+                    <option value="es">ES</option>
+                    <option value="it">IT</option>
+                    <option value="de">DE</option>
+                </select>
+            </div>
+            <h1 id="workshop-title">Ateliers Bitcoin</h1>
         </header>
 
         <div class="cc-watermark">
             <img src="themes/CC-logo.svg" alt="Creative Commons">
             <span class="separator">|</span>
             <span>@marsu-dev</span>
+            <span class="separator">|</span>
+            <a href="https://github.com/marsu-dev/workshops" target="_blank" rel="noopener noreferrer" class="github-link">
+                <i class="fab fa-github"></i>
+            </a>
         </div>
 
         <div class="presentations-grid" id="presentations-grid">
@@ -245,12 +311,55 @@
         </div>
 
         <div class="empty-state" id="empty-state" style="display: none;">
-            <h2>Aucune présentation disponible</h2>
-            <p>Ajoutez des fichiers markdown dans le dossier <code>presentations/</code></p>
+            <h2 id="empty-title">Aucune présentation disponible</h2>
+            <p id="empty-text">Ajoutez des fichiers markdown dans le dossier <code>presentations/</code></p>
         </div>
     </div>
 
     <script>
+        // Language Management System
+        const LanguageManager = {
+            STORAGE_KEY: 'workshop-language',
+            SUPPORTED_LANGUAGES: ['fr', 'en', 'es', 'it', 'de'],
+            DEFAULT_LANGUAGE: 'fr',
+
+            detectBrowserLanguage() {
+                const browserLang = navigator.language || navigator.userLanguage;
+                const langCode = browserLang.split('-')[0].toLowerCase();
+                return this.SUPPORTED_LANGUAGES.includes(langCode) ? langCode : this.DEFAULT_LANGUAGE;
+            },
+
+            getLanguage() {
+                const stored = localStorage.getItem(this.STORAGE_KEY);
+                if (stored && this.SUPPORTED_LANGUAGES.includes(stored)) {
+                    return stored;
+                }
+                return this.detectBrowserLanguage();
+            },
+
+            setLanguage(lang) {
+                if (this.SUPPORTED_LANGUAGES.includes(lang)) {
+                    localStorage.setItem(this.STORAGE_KEY, lang);
+                    return true;
+                }
+                return false;
+            },
+
+            initLanguageSelector() {
+                const currentLang = this.getLanguage();
+                const select = document.getElementById('language-select');
+                if (select) {
+                    select.value = currentLang;
+                    select.addEventListener('change', (e) => {
+                        const lang = e.target.value;
+                        if (this.setLanguage(lang)) {
+                            location.reload();
+                        }
+                    });
+                }
+            }
+        };
+
         // Animation réseau P2P
         window.addEventListener('DOMContentLoaded', function () {
             const canvas = document.getElementById('p2p-network');
@@ -618,50 +727,147 @@
         const presentations = [
             {
                 id: 'bip-21-01-sparrow',
-                title: 'Sparrow Wallet',
-                description: 'Apprenez à créer un wallet, utiliser les passphrases, gérer les comptes, recevoir et envoyer des bitcoins, et maîtriser la sélection de coins.',
-                file: 'presentations/bip-21-01-utilisations-sparrow.md',
+                title: {
+                    fr: 'Sparrow Wallet',
+                    en: 'Sparrow Wallet',
+                    es: 'Sparrow Wallet',
+                    it: 'Sparrow Wallet',
+                    de: 'Sparrow Wallet'
+                },
+                description: {
+                    fr: 'Apprenez à créer un wallet, utiliser les passphrases, gérer les comptes, recevoir et envoyer des bitcoins, et maîtriser la sélection de coins.',
+                    en: 'Learn how to create a wallet, use passphrases, manage accounts, receive and send bitcoins, and master coin selection.',
+                    es: 'Aprende a crear una billetera, usar frases de contraseña, gestionar cuentas, recibir y enviar bitcoins, y dominar la selección de monedas.',
+                    it: 'Impara a creare un portafoglio, usare passphrase, gestire account, ricevere e inviare bitcoin e padroneggiare la selezione delle monete.',
+                    de: 'Lernen Sie, eine Wallet zu erstellen, Passphrasen zu verwenden, Konten zu verwalten, Bitcoins zu empfangen und zu senden, und die Münzauswahl zu beherrschen.'
+                },
+                file: 'presentations/bip-21-01-utilisations-sparrow',
                 date: '10 novembre 2025'
             },
             {
                 id: 'bip-21-02-multisig',
-                title: 'Wallet Multi-signature',
-                description: 'Créez et gérez un portefeuille multi-signature pour sécuriser vos bitcoins avec plusieurs clés.',
-                file: 'presentations/bip-21-02-wallet-multisig.md',
+                title: {
+                    fr: 'Wallet Multi-signature',
+                    en: 'Multi-signature Wallet',
+                    es: 'Billetera Multi-firma',
+                    it: 'Portafoglio Multi-firma',
+                    de: 'Multi-Signatur-Wallet'
+                },
+                description: {
+                    fr: 'Créez et gérez un portefeuille multi-signature pour sécuriser vos bitcoins avec plusieurs clés.',
+                    en: 'Create and manage a multi-signature wallet to secure your bitcoins with multiple keys.',
+                    es: 'Crea y gestiona una billetera multi-firma para asegurar tus bitcoins con múltiples claves.',
+                    it: 'Crea e gestisci un portafoglio multi-firma per proteggere i tuoi bitcoin con più chiavi.',
+                    de: 'Erstellen und verwalten Sie eine Multi-Signatur-Wallet, um Ihre Bitcoins mit mehreren Schlüsseln zu sichern.'
+                },
+                file: 'presentations/bip-21-02-wallet-multisig',
                 date: '24 novembre 2025'
             },
             {
                 id: 'bip-21-03-be-bop',
-                title: 'be-BOP',
-                description: 'Découvrez be-BOP, un logiciel libre pour gérer vos ventes en toute indépendance. Aucune commission, aucune censure.',
-                file: 'presentations/bip-21-03-be-bop.md',
+                title: {
+                    fr: 'be-BOP',
+                    en: 'be-BOP',
+                    es: 'be-BOP',
+                    it: 'be-BOP',
+                    de: 'be-BOP'
+                },
+                description: {
+                    fr: 'Découvrez be-BOP, un logiciel libre pour gérer vos ventes en toute indépendance. Aucune commission, aucune censure.',
+                    en: 'Discover be-BOP, free software to manage your sales with complete independence. No commission, no censorship.',
+                    es: 'Descubre be-BOP, software libre para gestionar tus ventas con total independencia. Sin comisiones, sin censura.',
+                    it: 'Scopri be-BOP, software libero per gestire le tue vendite con completa indipendenza. Nessuna commissione, nessuna censura.',
+                    de: 'Entdecken Sie be-BOP, freie Software zur Verwaltung Ihrer Verkäufe in völliger Unabhängigkeit. Keine Provisionen, keine Zensur.'
+                },
+                file: 'presentations/bip-21-03-be-bop',
                 date: '04 décembre 2025'
             },
             {
                 id: 'bip-21-04-block-transaction',
-                title: 'Blocs & Transactions',
-                description: 'Comprenez la structure des blocs Bitcoin et le processus de validation des transactions sur la blockchain.',
-                file: 'presentations/bip-21-04-block-transaction.md',
+                title: {
+                    fr: 'Blocs & Transactions',
+                    en: 'Blocks & Transactions',
+                    es: 'Bloques y Transacciones',
+                    it: 'Blocchi e Transazioni',
+                    de: 'Blöcke & Transaktionen'
+                },
+                description: {
+                    fr: 'Comprenez la structure des blocs Bitcoin et le processus de validation des transactions sur la blockchain.',
+                    en: 'Understand the structure of Bitcoin blocks and the transaction validation process on the blockchain.',
+                    es: 'Comprende la estructura de los bloques de Bitcoin y el proceso de validación de transacciones en la blockchain.',
+                    it: 'Comprendi la struttura dei blocchi Bitcoin e il processo di validazione delle transazioni sulla blockchain.',
+                    de: 'Verstehen Sie die Struktur von Bitcoin-Blöcken und den Transaktionsvalidierungsprozess auf der Blockchain.'
+                },
+                file: 'presentations/bip-21-04-block-transaction',
                 date: '08 décembre 2025'
             }
         ];
 
+        // Initialize language selector
+        LanguageManager.initLanguageSelector();
+
+        // Get current language
+        const currentLang = LanguageManager.getLanguage();
+        document.documentElement.lang = currentLang;
+
+        // Update workshop title based on language
+        const workshopTitles = {
+            fr: 'Ateliers Bitcoin',
+            en: 'Bitcoin Workshops',
+            es: 'Talleres Bitcoin',
+            it: 'Workshop Bitcoin',
+            de: 'Bitcoin Workshops'
+        };
+        const workshopTitleElement = document.getElementById('workshop-title');
+        if (workshopTitleElement) {
+            workshopTitleElement.textContent = workshopTitles[currentLang] || workshopTitles.fr;
+        }
+
+        // Update empty state text based on language
+        const emptyStateTexts = {
+            fr: {
+                title: 'Aucune présentation disponible',
+                text: 'Ajoutez des fichiers markdown dans le dossier'
+            },
+            en: {
+                title: 'No presentations available',
+                text: 'Add markdown files in the'
+            },
+            es: {
+                title: 'No hay presentaciones disponibles',
+                text: 'Agregue archivos markdown en la carpeta'
+            },
+            it: {
+                title: 'Nessuna presentazione disponibile',
+                text: 'Aggiungi file markdown nella cartella'
+            },
+            de: {
+                title: 'Keine Präsentationen verfügbar',
+                text: 'Markdown-Dateien im Ordner hinzufügen'
+            }
+        };
+
         const grid = document.getElementById('presentations-grid');
         const emptyState = document.getElementById('empty-state');
+        const emptyTitle = document.getElementById('empty-title');
+        const emptyText = document.getElementById('empty-text');
 
         if (presentations.length === 0) {
             emptyState.style.display = 'block';
+            emptyTitle.textContent = emptyStateTexts[currentLang].title;
+            emptyText.innerHTML = `${emptyStateTexts[currentLang].text} <code>presentations/</code>`;
         } else {
             presentations.forEach(presentation => {
                 const card = document.createElement('a');
-                card.href = `presentation.html?file=${encodeURIComponent(presentation.file)}`;
+                const filePath = `${presentation.file}.${currentLang}.md`;
+                card.href = `presentation.html?file=${encodeURIComponent(filePath)}&lang=${currentLang}`;
                 card.className = 'presentation-card';
                 card.innerHTML = `
                     <div class="card-header">
                         <div class="logo"></div>
-                        <h2>${presentation.title}</h2>
+                        <h2>${presentation.title[currentLang] || presentation.title.fr}</h2>
                     </div>
-                    <p>${presentation.description}</p>
+                    <p>${presentation.description[currentLang] || presentation.description.fr}</p>
                     <div class="meta">${presentation.date || ''}</div>
                 `;
                 grid.appendChild(card);

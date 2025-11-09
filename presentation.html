@@ -196,6 +196,36 @@
             gap: 10px;
         }
 
+        .language-select-presentation {
+            background: rgba(247, 147, 26, 0.8);
+            color: white;
+            border: 1px solid rgba(247, 147, 26, 0.3);
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Courier New', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 12px;
+            transition: background 0.3s;
+            text-transform: uppercase;
+            outline: none;
+            box-sizing: border-box;
+            height: 40px;
+        }
+
+        .language-select-presentation:hover {
+            background: rgba(247, 147, 26, 1);
+            border-color: rgba(247, 147, 26, 0.5);
+        }
+
+        .language-select-presentation:focus {
+            border-color: rgba(247, 147, 26, 0.5);
+        }
+
+        .language-select-presentation option {
+            background: #0d1117;
+            color: #d9e0e7;
+        }
+
         .back-button {
             background: rgba(247, 147, 26, 0.8);
             color: white;
@@ -404,6 +434,13 @@
         <button class="first-slide-button" id="first-slide-button" title="Première slide"><i
                 class="fa-solid fa-backward-step"></i></button>
         <div class="slide-number" id="slide-number">1 / 1</div>
+        <select class="language-select-presentation" id="language-select-presentation">
+            <option value="fr">FR</option>
+            <option value="en">EN</option>
+            <option value="es">ES</option>
+            <option value="it">IT</option>
+            <option value="de">DE</option>
+        </select>
         <button class="fullscreen-button" id="fullscreen-button" title="Plein écran"><i class="fa-solid fa-expand"
                 id="fullscreen-icon"></i></button>
     </div>
@@ -429,9 +466,80 @@
     <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
 
     <script>
+        // Language Management System
+        const LanguageManager = {
+            STORAGE_KEY: 'workshop-language',
+            SUPPORTED_LANGUAGES: ['fr', 'en', 'es', 'it', 'de'],
+            DEFAULT_LANGUAGE: 'fr',
+
+            detectBrowserLanguage() {
+                const browserLang = navigator.language || navigator.userLanguage;
+                const langCode = browserLang.split('-')[0].toLowerCase();
+                return this.SUPPORTED_LANGUAGES.includes(langCode) ? langCode : this.DEFAULT_LANGUAGE;
+            },
+
+            getLanguage() {
+                const stored = localStorage.getItem(this.STORAGE_KEY);
+                if (stored && this.SUPPORTED_LANGUAGES.includes(stored)) {
+                    return stored;
+                }
+                return this.detectBrowserLanguage();
+            },
+
+            setLanguage(lang) {
+                if (this.SUPPORTED_LANGUAGES.includes(lang)) {
+                    localStorage.setItem(this.STORAGE_KEY, lang);
+                    return true;
+                }
+                return false;
+            },
+
+            initLanguageSelector() {
+                const currentLang = this.getLanguage();
+                const select = document.getElementById('language-select-presentation');
+                if (select) {
+                    select.value = currentLang;
+                    select.addEventListener('change', (e) => {
+                        const lang = e.target.value;
+                        if (this.setLanguage(lang)) {
+                            // Extract base file path and reload with new language
+                            const urlParams = new URLSearchParams(window.location.search);
+                            const filePath = urlParams.get('file');
+                            if (filePath) {
+                                // Remove language suffix if present
+                                const basePath = filePath.replace(/\.(fr|en|es|it|de)\.md$/, '');
+                                const newPath = `${basePath}.${lang}.md`;
+                                window.location.href = `presentation.html?file=${encodeURIComponent(newPath)}&lang=${lang}`;
+                            } else {
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+            }
+        };
+
         // Récupérer le fichier depuis l'URL
         const urlParams = new URLSearchParams(window.location.search);
-        const filePath = urlParams.get('file');
+        let filePath = urlParams.get('file');
+        const langParam = urlParams.get('lang');
+
+        // Get current language (from URL param, localStorage, or browser)
+        const currentLang = langParam || LanguageManager.getLanguage();
+        if (langParam) {
+            LanguageManager.setLanguage(langParam);
+        }
+        document.documentElement.lang = currentLang;
+
+        // Initialize language selector
+        LanguageManager.initLanguageSelector();
+
+        // If filePath doesn't have language suffix, add it
+        if (filePath && !filePath.match(/\.(fr|en|es|it|de)\.md$/)) {
+            // Extract base path and add language suffix
+            const basePath = filePath.replace(/\.md$/, '');
+            filePath = `${basePath}.${currentLang}.md`;
+        }
 
         // Clé pour le localStorage basée sur le fichier
         const storageKey = filePath ? `reveal-slide-${filePath}` : 'reveal-slide-default';
@@ -544,13 +652,34 @@
                 Reveal.slide(slideToLoad);
             });
         } else {
-            // Charger le fichier markdown d'abord
-            fetch(filePath)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Fichier non trouvé');
+            // Charger le fichier markdown d'abord avec fallback vers français
+            function loadMarkdownFile(path) {
+                return fetch(path)
+                    .then(response => {
+                        if (response.ok) {
+                            return response.text();
+                        }
+                        throw new Error('File not found');
+                    });
+            }
+
+            // Try to load the file with current language, fallback to French if not found
+            loadMarkdownFile(filePath)
+                .catch(() => {
+                    // Fallback to French if current language file doesn't exist
+                    const basePath = filePath.replace(/\.(fr|en|es|it|de)\.md$/, '');
+                    const fallbackPath = `${basePath}.fr.md`;
+                    if (fallbackPath !== filePath) {
+                        filePath = fallbackPath;
+                        return loadMarkdownFile(fallbackPath);
                     }
-                    return response.text();
+                    throw new Error('Fichier non trouvé');
+                })
+                .then(markdown => {
+                    if (!markdown) {
+                        throw new Error('Fichier vide');
+                    }
+                    return markdown;
                 })
                 .then(markdown => {
                     // Extraire le titre de la présentation (premier H1)
