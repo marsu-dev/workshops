@@ -308,7 +308,7 @@
         </div>
 
         <div class="presentations-grid" id="presentations-grid">
-            <!-- Les présentations seront chargées dynamiquement -->
+            <!-- Presentations will be loaded dynamically -->
         </div>
 
         <div class="empty-state" id="empty-state" style="display: none;">
@@ -361,7 +361,7 @@
             }
         };
 
-        // Animation réseau P2P
+        // P2P network animation
         window.addEventListener('DOMContentLoaded', function () {
             const canvas = document.getElementById('p2p-network');
             if (!canvas) {
@@ -375,7 +375,7 @@
                 return;
             }
 
-            // Variables d'état
+            // State variables
             let nodes = [];
             let animationTime = 0;
             let lastTime = 0;
@@ -384,7 +384,7 @@
             let activeConnections = [];
 
             // Configuration
-            const rotationSpeed = Math.PI / 60000; // Rotation complète en 2 minutes
+            const rotationSpeed = Math.PI / 60000; // Full rotation in 2 minutes
             const nodeCount = 42;
             const maxConnectionDistance = 400;
             const nodeRadius = 3;
@@ -393,7 +393,7 @@
             const targetLightParticles = 21;
             const lightParticleSpawnRate = 0.15;
 
-            // Initialiser le canvas
+            // Initialize the canvas
             function resizeCanvas() {
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
@@ -403,11 +403,11 @@
                 calculateInitialPositions();
             }
 
-            // Calculer l'enveloppe convexe (Graham scan simplifié)
+            // Calculate the convex hull (simplified Graham scan)
             function calculateConvexHull() {
                 if (nodes.length < 3) return nodes.map((_, i) => i);
 
-                // Trouver le point le plus bas
+                // Find the bottommost point
                 let bottom = 0;
                 for (let i = 1; i < nodes.length; i++) {
                     if (nodes[i].y < nodes[bottom].y ||
@@ -416,13 +416,13 @@
                     }
                 }
 
-                // Trier par angle polaire
+                // Sort by polar angle
                 const sorted = nodes.map((n, i) => ({
                     i, x: n.x, y: n.y,
                     angle: Math.atan2(n.y - nodes[bottom].y, n.x - nodes[bottom].x)
                 })).sort((a, b) => a.i === bottom ? -1 : b.i === bottom ? 1 : a.angle - b.angle);
 
-                // Construire l'enveloppe
+                // Build the hull
                 const hull = [sorted[0].i];
                 for (let i = 1; i < sorted.length; i++) {
                     while (hull.length > 1) {
@@ -437,16 +437,16 @@
                 return hull;
             }
 
-            // Calculer les connexions actives (équilibrées, 2-3 par nœud)
+            // Calculate active connections (balanced, 2-3 per node)
             function calculateActiveConnections() {
                 const connectionCount = new Array(nodes.length).fill(0);
                 const possibleConnections = [];
                 activeConnections = [];
 
-                // Calculer l'enveloppe convexe
+                // Calculate the convex hull
                 const convexHull = calculateConvexHull();
 
-                // D'abord, connecter tous les sommets de l'enveloppe convexe entre eux
+                // First, connect all vertices of the convex hull to each other
                 for (let i = 0; i < convexHull.length; i++) {
                     const from = convexHull[i];
                     const to = convexHull[(i + 1) % convexHull.length];
@@ -458,7 +458,7 @@
                     connectionCount[to]++;
                 }
 
-                // Identifier toutes les connexions possibles
+                // Identify all possible connections
                 for (let i = 0; i < nodes.length; i++) {
                     for (let j = i + 1; j < nodes.length; j++) {
                         const alreadyConnected = activeConnections.some(conn =>
@@ -475,23 +475,23 @@
                     }
                 }
 
-                // Fonction pour obtenir le score d'une connexion (priorité aux nœuds avec moins de connexions)
+                // Function to get the score of a connection (priority to nodes with fewer connections)
                 function getConnectionScore(conn) {
                     const countFrom = connectionCount[conn.from];
                     const countTo = connectionCount[conn.to];
                     const avgCount = (countFrom + countTo) / 2;
-                    // Priorité aux connexions entre nœuds peu connectés
-                    // Plus la distance est petite, mieux c'est
+                    // Priority to connections between poorly connected nodes
+                    // The smaller the distance, the better
                     return (3 - avgCount) * 1000 - conn.distance;
                 }
 
-                // Ajouter les connexions en équilibrant (algorithme glouton)
-                // On itère jusqu'à ce que tous les nœuds aient au moins 2 connexions
+                // Add connections while balancing (greedy algorithm)
+                // Iterate until all nodes have at least 2 connections
                 let changed = true;
                 while (changed) {
                     changed = false;
 
-                    // Trouver les nœuds avec moins de 2 connexions
+                    // Find nodes with fewer than 2 connections
                     const nodesNeedingConnections = [];
                     for (let i = 0; i < nodes.length; i++) {
                         if (connectionCount[i] < 2) {
@@ -499,9 +499,9 @@
                         }
                     }
 
-                    // Si tous les nœuds ont au moins 2 connexions, on peut ajouter des 3èmes
+                    // If all nodes have at least 2 connections, we can add 3rd ones
                     if (nodesNeedingConnections.length === 0) {
-                        // Ajouter des connexions pour atteindre 3 connexions par nœud
+                        // Add connections to reach 3 connections per node
                         const available = possibleConnections.filter(conn =>
                             !activeConnections.some(ac =>
                                 (ac.from === conn.from && ac.to === conn.to) ||
@@ -512,7 +512,7 @@
                         );
 
                         if (available.length > 0) {
-                            // Trier par score (recalculé à chaque itération)
+                            // Sort by score (recalculated at each iteration)
                             available.sort((a, b) => getConnectionScore(b) - getConnectionScore(a));
                             const best = available[0];
                             activeConnections.push(best);
@@ -521,7 +521,7 @@
                             changed = true;
                         }
                     } else {
-                        // Prioriser les nœuds avec moins de connexions
+                        // Prioritize nodes with fewer connections
                         for (const nodeId of nodesNeedingConnections) {
                             const candidates = possibleConnections.filter(conn =>
                                 !activeConnections.some(ac =>
@@ -534,21 +534,21 @@
                             );
 
                             if (candidates.length > 0) {
-                                // Trier par score (recalculé)
+                                // Sort by score (recalculated)
                                 candidates.sort((a, b) => getConnectionScore(b) - getConnectionScore(a));
                                 const best = candidates[0];
                                 activeConnections.push(best);
                                 connectionCount[best.from]++;
                                 connectionCount[best.to]++;
                                 changed = true;
-                                break; // Une connexion à la fois pour rééquilibrer
+                                break; // One connection at a time to rebalance
                             }
                         }
                     }
                 }
             }
 
-            // Vérifier si le graphe est connexe
+            // Check if the graph is connected
             function isConnected() {
                 if (nodes.length === 0) return false;
                 calculateActiveConnections();
@@ -572,7 +572,7 @@
                 return visited.size === nodes.length;
             }
 
-            // Calculer les positions initiales pour la rotation
+            // Calculate initial positions for rotation
             function calculateInitialPositions() {
                 const cx = canvas.width / 2;
                 const cy = canvas.height / 2;
@@ -584,7 +584,7 @@
                 });
             }
 
-            // Créer une particule lumineuse
+            // Create a light particle
             function spawnLightParticle() {
                 if (activeConnections.length === 0) return;
                 const conn = activeConnections[Math.floor(Math.random() * activeConnections.length)];
@@ -597,7 +597,7 @@
                 });
             }
 
-            // Initialiser les nœuds dans un cercle
+            // Initialize nodes in a circle
             function initNodes() {
                 nodes = [];
                 const cx = canvas.width / 2;
@@ -628,7 +628,7 @@
                 }
             }
 
-            // Dessiner et animer
+            // Draw and animate
             function draw(currentTime) {
                 if (canvas.width === 0 || canvas.height === 0 || nodes.length === 0) return;
 
@@ -643,7 +643,7 @@
 
                 calculateActiveConnections();
 
-                // Dessiner les connexions
+                // Draw connections
                 activeConnections.forEach(conn => {
                     const dist = conn.distance;
                     const baseOpacity = (1 - dist / maxConnectionDistance) * 0.5;
@@ -658,7 +658,7 @@
                     ctx.stroke();
                 });
 
-                // Dessiner les particules lumineuses
+                // Draw light particles
                 lightParticles.forEach(p => {
                     const from = nodes[p.fromNode], to = nodes[p.toNode];
                     if (!from || !to) return;
@@ -678,7 +678,7 @@
                     ctx.fill();
                 });
 
-                // Dessiner les nœuds
+                // Draw nodes
                 nodes.forEach(node => {
                     ctx.fillStyle = nodeColor;
                     ctx.beginPath();
@@ -686,7 +686,7 @@
                     ctx.fill();
                 });
 
-                // Mettre à jour les particules
+                // Update particles
                 if (lightParticles.length < targetLightParticles && Math.random() < lightParticleSpawnRate) {
                     spawnLightParticle();
                 }
@@ -695,7 +695,7 @@
                     return p.progress < 1;
                 });
 
-                // Mettre à jour les positions (rotation)
+                // Update positions (rotation)
                 nodes.forEach(node => {
                     const angle = node.initialAngle + rotationAngle;
                     node.x = cx + Math.cos(angle) * node.initialDistance;
@@ -703,7 +703,7 @@
                 });
             }
 
-            // Initialiser et démarrer l'animation
+            // Initialize and start the animation
             setTimeout(() => {
                 resizeCanvas();
                 let attempts = 0;
@@ -723,8 +723,8 @@
             window.addEventListener('resize', resizeCanvas);
         });
 
-        // Liste des présentations disponibles
-        // Ajoutez vos présentations ici avec leur nom et description
+        // List of available presentations
+        // Add your presentations here with their name and description
         const presentations = [
             {
                 id: 'bip-21-01-sparrow',
