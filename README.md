@@ -6,10 +6,18 @@ This repository contains Bitcoin workshop presentations created with [Reveal.js]
 
 Presentations are written in Markdown format and stored in the `presentations/` folder. Each presentation is available in multiple languages:
 
-- `bip-21-01-utilisations-sparrow.{lang}.md`
-- `bip-21-02-wallet-multisig.{lang}.md`
-- `bip-21-03-be-bop.{lang}.md`
-- `bip-21-04-block-transaction.{lang}.md`
+- `01-sparrow.{lang}.md` - Sparrow Wallet
+- `02-multisig.{lang}.md` - Multi-signature Wallet with Sparrow
+- `03-be-bop.{lang}.md` - be-BOP
+- `04-block-transaction.{lang}.md` - Blocks & Transactions
+- `05-git-basics.{lang}.md` - Git Basics
+- `06-git-advanced.{lang}.md` - Git Advanced
+- `07-liana-basics.{lang}.md` - Liana Basics
+- `08-liana-advanced.{lang}.md` - Liana Advanced
+- `09-installer-umbrel.{lang}.md` - Install Umbrel
+- `10-presentation-soroban.{lang}.md` - Soroban Presentation
+- `11-satochip.{lang}.md` - Satoship
+- `12-hardware-wallets-sparrow.{lang}.md` - Hardware Wallets with Sparrow
 
 Where `{lang}` can be: `fr`, `en`, `es`, `it`, or `de`.
 

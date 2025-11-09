@@ -227,6 +227,23 @@
             opacity: 0.9;
         }
 
+        .presentation-card .logo.marsu-dev {
+            background-image: url("themes/marsu-dev.png");
+            background-size: cover;
+            background-position: center;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .presentation-card .logo.github {
+            background-image: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #d9e0e7;
+        }
+
         .presentation-card .card-header {
             min-height: 60px;
             display: flex;
@@ -283,6 +300,56 @@
             border-radius: 4px;
             font-family: 'Courier New', monospace;
         }
+
+        .filters-container {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .filter-button {
+            background: rgba(247, 147, 26, 0.2);
+            color: #d9e0e7;
+            border: 1px solid rgba(247, 147, 26, 0.3);
+            padding: 0.6rem 1.2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Courier New', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-transform: capitalize;
+            outline: none;
+            user-select: none;
+        }
+
+        .filter-button:hover {
+            background: rgba(247, 147, 26, 0.3);
+            border-color: rgba(247, 147, 26, 0.5);
+        }
+
+        .filter-button.active {
+            background: rgba(247, 147, 26, 0.6);
+            border-color: rgba(247, 147, 26, 0.8);
+            color: #ffffff;
+            box-shadow: 0 0 10px rgba(247, 147, 26, 0.4);
+        }
+
+        .filter-button:focus {
+            border-color: rgba(247, 147, 26, 0.8);
+            box-shadow: 0 0 0 2px rgba(247, 147, 26, 0.3);
+        }
+
+        .presentation-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
+        }
+
+        .presentation-card.hidden {
+            display: none;
+        }
     </style>
 </head>
 
@@ -308,9 +375,14 @@
             <span class="separator">|</span>
             <span>@marsu-dev</span>
             <span class="separator">|</span>
-            <a href="https://github.com/marsu-dev/workshops" target="_blank" rel="noopener noreferrer" class="github-link">
+            <a href="https://github.com/marsu-dev/workshops" target="_blank" rel="noopener noreferrer"
+                class="github-link">
                 <i class="fab fa-github"></i>
             </a>
+        </div>
+
+        <div class="filters-container" id="filters-container">
+            <!-- Filter buttons will be created dynamically -->
         </div>
 
         <div class="presentations-grid" id="presentations-grid">
@@ -729,11 +801,12 @@
             window.addEventListener('resize', resizeCanvas);
         });
 
-        // List of available presentations
-        // Add your presentations here with their name and description
+        // Liste des présentations disponibles
+        // Index global : utilisez simplement un numéro séquentiel (1, 2, 3, ...)
+        // Pour les nouvelles présentations : traiter uniquement en français
         const presentations = [
             {
-                id: 'bip-21-01-sparrow',
+                id: 1,
                 title: {
                     fr: 'Sparrow Wallet',
                     en: 'Sparrow Wallet',
@@ -748,30 +821,32 @@
                     it: 'Impara a creare un portafoglio, usare passphrase, gestire account, ricevere e inviare bitcoin e padroneggiare la selezione delle monete.',
                     de: 'Lernen Sie, eine Wallet zu erstellen, Passphrasen zu verwenden, Konten zu verwalten, Bitcoins zu empfangen und zu senden, und die Münzauswahl zu beherrschen.'
                 },
-                file: 'presentations/bip-21-01-utilisations-sparrow',
-                date: '10 novembre 2025'
+                file: 'presentations/01-sparrow',
+                date: '10 novembre 2025',
+                tags: ['bitcoin', 'sparrow', 'wallet']
             },
             {
-                id: 'bip-21-02-multisig',
+                id: 2,
                 title: {
-                    fr: 'Wallet Multi-signature',
+                    fr: 'Wallet Multi-signature avec Sparrow',
                     en: 'Multi-signature Wallet',
                     es: 'Billetera Multi-firma',
                     it: 'Portafoglio Multi-firma',
                     de: 'Multi-Signatur-Wallet'
                 },
                 description: {
-                    fr: 'Créez et gérez un portefeuille multi-signature pour sécuriser vos bitcoins avec plusieurs clés.',
+                    fr: 'Créez et gérez un portefeuille multi-signature avec Sparrow Wallet pour sécuriser vos bitcoins avec plusieurs clés et plusieurs personnes.',
                     en: 'Create and manage a multi-signature wallet to secure your bitcoins with multiple keys.',
                     es: 'Crea y gestiona una billetera multi-firma para asegurar tus bitcoins con múltiples claves.',
                     it: 'Crea e gestisci un portafoglio multi-firma per proteggere i tuoi bitcoin con più chiavi.',
                     de: 'Erstellen und verwalten Sie eine Multi-Signatur-Wallet, um Ihre Bitcoins mit mehreren Schlüsseln zu sichern.'
                 },
-                file: 'presentations/bip-21-02-wallet-multisig',
-                date: '24 novembre 2025'
+                file: 'presentations/02-multisig',
+                date: '24 novembre 2025',
+                tags: ['bitcoin', 'sparrow', 'wallet']
             },
             {
-                id: 'bip-21-03-be-bop',
+                id: 3,
                 title: {
                     fr: 'be-BOP',
                     en: 'be-BOP',
@@ -786,11 +861,12 @@
                     it: 'Scopri be-BOP, software libero per gestire le tue vendite con completa indipendenza. Nessuna commissione, nessuna censura.',
                     de: 'Entdecken Sie be-BOP, freie Software zur Verwaltung Ihrer Verkäufe in völliger Unabhängigkeit. Keine Provisionen, keine Zensur.'
                 },
-                file: 'presentations/bip-21-03-be-bop',
-                date: '04 décembre 2025'
+                file: 'presentations/03-be-bop',
+                date: '04 décembre 2025',
+                tags: ['bitcoin']
             },
             {
-                id: 'bip-21-04-block-transaction',
+                id: 4,
                 title: {
                     fr: 'Blocs & Transactions',
                     en: 'Blocks & Transactions',
@@ -805,9 +881,186 @@
                     it: 'Comprendi la struttura dei blocchi Bitcoin e il processo di validazione delle transazioni sulla blockchain.',
                     de: 'Verstehen Sie die Struktur von Bitcoin-Blöcken und den Transaktionsvalidierungsprozess auf der Blockchain.'
                 },
-                file: 'presentations/bip-21-04-block-transaction',
-                date: '08 décembre 2025'
-            }
+                file: 'presentations/04-block-transaction',
+                date: '08 décembre 2025',
+                tags: ['bitcoin']
+            },
+            {
+                id: 5,
+                title: {
+                    fr: 'Git Basics',
+                    en: 'Git Basics',
+                    es: 'Git Basics',
+                    it: 'Git Basics',
+                    de: 'Git Basics'
+                },
+                description: {
+                    fr: 'Introduction aux concepts de base de Git : création de dépôts, commits, branches, et gestion de versions pour vos projets.',
+                    en: 'Introduction to Git basics: creating repositories, commits, branches, and version management for your projects.',
+                    es: 'Introducción a los conceptos básicos de Git: creación de repositorios, commits, ramas y gestión de versiones para tus proyectos.',
+                    it: 'Introduzione ai concetti di base di Git: creazione di repository, commit, branch e gestione delle versioni per i tuoi progetti.',
+                    de: 'Einführung in die Git-Grundlagen: Erstellen von Repositories, Commits, Branches und Versionsverwaltung für Ihre Projekte.'
+                },
+                file: 'presentations/05-git-basics',
+                date: 'non planifié',
+                logo: 'github',
+                link: 'https://git-scm.com/',
+                tags: ['code']
+            },
+            {
+                id: 6,
+                title: {
+                    fr: 'Git Advanced',
+                    en: 'Git Advanced',
+                    es: 'Git Advanced',
+                    it: 'Git Advanced',
+                    de: 'Git Advanced'
+                },
+                description: {
+                    fr: 'Concepts avancés de Git : rebase interactif, stratégies de merge, hooks, workflows collaboratifs et résolution de conflits complexes.',
+                    en: 'Advanced Git concepts: interactive rebase, merge strategies, hooks, collaborative workflows and complex conflict resolution.',
+                    es: 'Conceptos avanzados de Git: rebase interactivo, estrategias de merge, hooks, flujos de trabajo colaborativos y resolución de conflictos complejos.',
+                    it: 'Concetti avanzati di Git: rebase interattivo, strategie di merge, hooks, workflow collaborativi e risoluzione di conflitti complessi.',
+                    de: 'Erweiterte Git-Konzepte: interaktives Rebase, Merge-Strategien, Hooks, kollaborative Workflows und komplexe Konfliktlösung.'
+                },
+                file: 'presentations/06-git-advanced',
+                date: 'non planifié',
+                logo: 'github',
+                link: 'https://git-scm.com/',
+                tags: ['code']
+            },
+            {
+                id: 7,
+                title: {
+                    fr: 'Liana Basics',
+                    en: 'Liana Basics',
+                    es: 'Liana Basics',
+                    it: 'Liana Basics',
+                    de: 'Liana Basics'
+                },
+                description: {
+                    fr: 'Introduction à Liana, un wallet Bitcoin sécurisé avec timelocks et multisig. Apprenez les bases pour protéger vos bitcoins avec le modèle d\'héritage simple.',
+                    en: 'Introduction to Liana, a secure Bitcoin wallet with timelocks and multisig. Learn the basics to protect your bitcoins with the simple inheritance model.',
+                    es: 'Introducción a Liana, una billetera Bitcoin segura con timelocks y multisig. Aprende los conceptos básicos para proteger tus bitcoins con el modelo de herencia simple.',
+                    it: 'Introduzione a Liana, un portafoglio Bitcoin sicuro con timelocks e multisig. Impara le basi per proteggere i tuoi bitcoin con il modello di eredità semplice.',
+                    de: 'Einführung in Liana, eine sichere Bitcoin-Wallet mit Timelocks und Multisig. Lernen Sie die Grundlagen, um Ihre Bitcoins mit dem einfachen Erbmodell zu schützen.'
+                },
+                file: 'presentations/07-liana-basics',
+                date: 'non planifié',
+                logo: 'themes/logo-liana.svg',
+                link: 'https://wizardsardine.com/liana/',
+                tags: ['bitcoin', 'wallet']
+            },
+            {
+                id: 8,
+                title: {
+                    fr: 'Liana Advanced',
+                    en: 'Liana Advanced',
+                    es: 'Liana Advanced',
+                    it: 'Liana Advanced',
+                    de: 'Liana Advanced'
+                },
+                description: {
+                    fr: 'Fonctionnalités avancées de Liana : planification d\'héritage Bitcoin, expanding multisig, disaster recovery et configurations de sécurité complexes pour associations.',
+                    en: 'Advanced Liana features: Bitcoin inheritance planning, expanding multisig, disaster recovery and complex security configurations for organizations.',
+                    es: 'Funciones avanzadas de Liana: planificación de herencia Bitcoin, expanding multisig, recuperación ante desastres y configuraciones de seguridad complejas para organizaciones.',
+                    it: 'Funzionalità avanzate di Liana: pianificazione dell\'eredità Bitcoin, expanding multisig, disaster recovery e configurazioni di sicurezza complesse per organizzazioni.',
+                    de: 'Erweiterte Liana-Funktionen: Bitcoin-Erbplanung, Expanding Multisig, Disaster Recovery und komplexe Sicherheitskonfigurationen für Organisationen.'
+                },
+                file: 'presentations/08-liana-advanced',
+                date: 'non planifié',
+                logo: 'themes/logo-liana.svg',
+                link: 'https://wizardsardine.com/liana/',
+                tags: ['bitcoin', 'wallet']
+            },
+            {
+                id: 9,
+                title: {
+                    fr: 'Installer Umbrel',
+                    en: 'Install Umbrel',
+                    es: 'Instalar Umbrel',
+                    it: 'Installa Umbrel',
+                    de: 'Umbrel installieren'
+                },
+                description: {
+                    fr: 'UmbrelOS est un système d\'exploitation pour serveur personnel qui permet d\'héberger chez soi ses propres services : cloud, médias, sauvegardes, domotique, ou nœud Bitcoin.',
+                    en: 'UmbrelOS is an operating system for personal servers that allows you to host your own services at home: cloud, media, backups, home automation, or Bitcoin node.',
+                    es: 'UmbrelOS es un sistema operativo para servidores personales que permite alojar tus propios servicios en casa: nube, medios, copias de seguridad, domótica o nodo Bitcoin.',
+                    it: 'UmbrelOS è un sistema operativo per server personali che consente di ospitare i propri servizi a casa: cloud, media, backup, domotica o nodo Bitcoin.',
+                    de: 'UmbrelOS ist ein Betriebssystem für persönliche Server, das es ermöglicht, eigene Dienste zu Hause zu hosten: Cloud, Medien, Backups, Hausautomation oder Bitcoin-Knoten.'
+                },
+                file: 'presentations/09-installer-umbrel',
+                date: 'non planifié',
+                logo: 'themes/logo-umbrel.png',
+                link: 'https://umbrel.com/umbrelos',
+                tags: ['bitcoin']
+            },
+            {
+                id: 10,
+                title: {
+                    fr: 'Présentation Soroban',
+                    en: 'Soroban Presentation',
+                    es: 'Presentación Soroban',
+                    it: 'Presentazione Soroban',
+                    de: 'Soroban-Präsentation'
+                },
+                description: {
+                    fr: 'Soroban est un serveur de répertoire distribué qui permet de stocker et partager des informations de manière décentralisée et anonyme.',
+                    en: 'Soroban is a distributed directory server that allows storing and sharing information in a decentralized and anonymous manner.',
+                    es: 'Soroban es un servidor de directorio distribuido que permite almacenar y compartir información de manera descentralizada y anónima.',
+                    it: 'Soroban è un server di directory distribuito che consente di archiviare e condividere informazioni in modo decentralizzato e anonimo.',
+                    de: 'Soroban ist ein verteilter Verzeichnisserver, der es ermöglicht, Informationen dezentral und anonym zu speichern und zu teilen.'
+                },
+                file: 'presentations/10-presentation-soroban',
+                date: 'non planifié',
+                logo: 'themes/logo-tsuba.png',
+                link: 'https://medium.com/samourai-wallet/wallet-update-0-99-96-introducing-soroban-adc9a36a7ddb',
+                tags: ['bitcoin']
+            },
+            {
+                id: 11,
+                title: {
+                    fr: 'Satoship',
+                    en: 'Satoship',
+                    es: 'Satoship',
+                    it: 'Satoship',
+                    de: 'Satoship'
+                },
+                description: {
+                    fr: 'Be self-custody, protect your Bitcoin and cryptocurrencies using the Satochip hardware wallet. For the highest level of security, combine it with Seedkeeper, the seedphrases manager.',
+                    en: 'Be self-custody, protect your Bitcoin and cryptocurrencies using the Satochip hardware wallet. For the highest level of security, combine it with Seedkeeper, the seedphrases manager.',
+                    es: 'Sé auto-custodio, protege tu Bitcoin y criptomonedas usando la billetera hardware Satochip. Para el más alto nivel de seguridad, combínala con Seedkeeper, el administrador de frases semilla.',
+                    it: 'Sii auto-custodito, proteggi i tuoi Bitcoin e criptovalute usando il portafoglio hardware Satochip. Per il massimo livello di sicurezza, combinalo con Seedkeeper, il gestore di seedphrase.',
+                    de: 'Seien Sie selbstverwaltet, schützen Sie Ihr Bitcoin und Ihre Kryptowährungen mit der Satochip-Hardware-Wallet. Für das höchste Sicherheitsniveau kombinieren Sie sie mit Seedkeeper, dem Seedphrase-Manager.'
+                },
+                file: 'presentations/11-satochip',
+                date: 'non planifié',
+                logo: 'marsu-dev',
+                link: 'https://satochip.io/',
+                tags: ['bitcoin', 'wallet']
+            },
+            {
+                id: 12,
+                title: {
+                    fr: 'Hardware Wallets avec Sparrow',
+                    en: 'Hardware Wallets with Sparrow',
+                    es: 'Hardware Wallets con Sparrow',
+                    it: 'Hardware Wallet con Sparrow',
+                    de: 'Hardware-Wallets mit Sparrow'
+                },
+                description: {
+                    fr: 'Apprenez à utiliser votre hardware wallet (Ledger, Jade, SigSigner, Trezor, etc.) avec Sparrow Wallet pour sécuriser et gérer vos bitcoins de manière professionnelle.',
+                    en: 'Learn how to use your hardware wallet (Ledger, Jade, SigSigner, Trezor, etc.) with Sparrow Wallet to secure and manage your bitcoins professionally.',
+                    es: 'Aprende a usar tu billetera hardware (Ledger, Jade, SigSigner, Trezor, etc.) con Sparrow Wallet para asegurar y gestionar tus bitcoins de manera profesional.',
+                    it: 'Impara a usare il tuo portafoglio hardware (Ledger, Jade, SigSigner, Trezor, ecc.) con Sparrow Wallet per proteggere e gestire i tuoi bitcoin in modo professionale.',
+                    de: 'Lernen Sie, wie Sie Ihre Hardware-Wallet (Ledger, Jade, SigSigner, Trezor usw.) mit Sparrow Wallet verwenden, um Ihre Bitcoins professionell zu sichern und zu verwalten.'
+                },
+                file: 'presentations/12-hardware-wallets-sparrow',
+                date: 'non planifié',
+                logo: 'marsu-dev',
+                link: 'https://www.sparrowwallet.com/',
+                tags: ['bitcoin', 'sparrow', 'wallet']
+            },
         ];
 
         // Initialize language selector
@@ -858,6 +1111,175 @@
         const emptyState = document.getElementById('empty-state');
         const emptyTitle = document.getElementById('empty-title');
         const emptyText = document.getElementById('empty-text');
+        const filtersContainer = document.getElementById('filters-container');
+
+        // Available tags
+        const availableTags = ['bitcoin', 'sparrow', 'wallet', 'code'];
+        
+        // Tag labels for different languages
+        const tagLabels = {
+            fr: {
+                bitcoin: 'Bitcoin',
+                sparrow: 'Sparrow',
+                wallet: 'Wallet',
+                code: 'Code'
+            },
+            en: {
+                bitcoin: 'Bitcoin',
+                sparrow: 'Sparrow',
+                wallet: 'Wallet',
+                code: 'Code'
+            },
+            es: {
+                bitcoin: 'Bitcoin',
+                sparrow: 'Sparrow',
+                wallet: 'Billetera',
+                code: 'Código'
+            },
+            it: {
+                bitcoin: 'Bitcoin',
+                sparrow: 'Sparrow',
+                wallet: 'Portafoglio',
+                code: 'Codice'
+            },
+            de: {
+                bitcoin: 'Bitcoin',
+                sparrow: 'Sparrow',
+                wallet: 'Wallet',
+                code: 'Code'
+            }
+        };
+
+        // State for active filters
+        let activeFilters = new Set();
+
+        // Create "All" button to reset filters
+        const allButton = document.createElement('button');
+        allButton.className = 'filter-button active';
+        const allButtonLabels = {
+            fr: 'Tous',
+            en: 'All',
+            es: 'Todos',
+            it: 'Tutti',
+            de: 'Alle'
+        };
+        allButton.textContent = allButtonLabels[currentLang] || 'All';
+        allButton.dataset.tag = 'all';
+        allButton.addEventListener('click', () => {
+            // Reset all filters
+            activeFilters.clear();
+            allButton.classList.add('active');
+            // Remove active class from all tag buttons
+            filtersContainer.querySelectorAll('.filter-button[data-tag]').forEach(btn => {
+                if (btn.dataset.tag !== 'all') {
+                    btn.classList.remove('active');
+                }
+            });
+            filterPresentations();
+        });
+        filtersContainer.appendChild(allButton);
+
+        // Create filter buttons
+        availableTags.forEach(tag => {
+            const button = document.createElement('button');
+            button.className = 'filter-button';
+            button.textContent = tagLabels[currentLang][tag] || tag;
+            button.dataset.tag = tag;
+            button.addEventListener('click', () => {
+                if (activeFilters.has(tag)) {
+                    activeFilters.delete(tag);
+                    button.classList.remove('active');
+                } else {
+                    activeFilters.add(tag);
+                    button.classList.add('active');
+                }
+                // Update "All" button state
+                if (activeFilters.size === 0) {
+                    allButton.classList.add('active');
+                } else {
+                    allButton.classList.remove('active');
+                }
+                filterPresentations();
+            });
+            filtersContainer.appendChild(button);
+        });
+
+        // Store presentation cards for filtering
+        let presentationCards = [];
+
+        // Function to filter presentations (AND logic)
+        function filterPresentations() {
+            let visibleCount = 0;
+
+            presentationCards.forEach(card => {
+                const presentation = card.presentation;
+                const presentationTags = presentation.tags || [];
+
+                // If no filters are active, show all presentations
+                if (activeFilters.size === 0) {
+                    card.element.classList.remove('hidden');
+                    visibleCount++;
+                    return;
+                }
+
+                // Check if presentation has ALL active tags (AND logic)
+                const hasAllTags = Array.from(activeFilters).every(tag => 
+                    presentationTags.includes(tag)
+                );
+
+                if (hasAllTags) {
+                    card.element.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    card.element.classList.add('hidden');
+                }
+            });
+            
+            // Update "All" button state based on active filters
+            const allButton = filtersContainer.querySelector('.filter-button[data-tag="all"]');
+            if (allButton) {
+                if (activeFilters.size === 0) {
+                    allButton.classList.add('active');
+                } else {
+                    allButton.classList.remove('active');
+                }
+            }
+
+            // Update empty state
+            if (visibleCount === 0 && presentations.length > 0) {
+                emptyState.style.display = 'block';
+                const emptyStateFilterTexts = {
+                    fr: {
+                        title: 'Aucune présentation trouvée',
+                        text: 'Aucune présentation ne correspond aux filtres sélectionnés.'
+                    },
+                    en: {
+                        title: 'No presentations found',
+                        text: 'No presentations match the selected filters.'
+                    },
+                    es: {
+                        title: 'No se encontraron presentaciones',
+                        text: 'Ninguna presentación coincide con los filtros seleccionados.'
+                    },
+                    it: {
+                        title: 'Nessuna presentazione trovata',
+                        text: 'Nessuna presentazione corrisponde ai filtri selezionati.'
+                    },
+                    de: {
+                        title: 'Keine Präsentationen gefunden',
+                        text: 'Keine Präsentationen entsprechen den ausgewählten Filtern.'
+                    }
+                };
+                emptyTitle.textContent = emptyStateFilterTexts[currentLang].title;
+                emptyText.textContent = emptyStateFilterTexts[currentLang].text;
+            } else if (presentations.length === 0) {
+                emptyState.style.display = 'block';
+                emptyTitle.textContent = emptyStateTexts[currentLang].title;
+                emptyText.innerHTML = `${emptyStateTexts[currentLang].text} <code>presentations/</code>`;
+            } else {
+                emptyState.style.display = 'none';
+            }
+        }
 
         if (presentations.length === 0) {
             emptyState.style.display = 'block';
@@ -866,19 +1288,70 @@
         } else {
             presentations.forEach(presentation => {
                 const card = document.createElement('a');
-                const filePath = `${presentation.file}.${currentLang}.md`;
-                card.href = `presentation.html?file=${encodeURIComponent(filePath)}&lang=${currentLang}`;
+                // Pour les nouvelles présentations (français uniquement), utiliser toujours .fr.md
+                // Pour les anciennes, utiliser la langue sélectionnée avec fallback vers .fr.md
+                let filePath;
+                let displayLang = currentLang;
+                
+                // Vérifier si la présentation a des traductions pour la langue sélectionnée
+                let fileLang = currentLang;
+                if (presentation.title[currentLang] && presentation.description[currentLang]) {
+                    // Présentation multilingue : utiliser la langue sélectionnée
+                    filePath = `${presentation.file}.${currentLang}.md`;
+                    fileLang = currentLang;
+                } else {
+                    // Nouvelle présentation (français uniquement) : toujours utiliser .fr.md
+                    filePath = `${presentation.file}.fr.md`;
+                    displayLang = 'fr';
+                    fileLang = 'fr';
+                }
+                
+                card.href = `presentation.html?file=${encodeURIComponent(filePath)}&lang=${fileLang}`;
                 card.className = 'presentation-card';
+
+                // Determine logo HTML based on presentation logo type
+                // Keep logo-bip-21 for existing BIP-21 presentations (id 1-4), use marsu-dev for new ones
+                let logoHTML = '<div class="logo"></div>';
+                if (presentation.id && typeof presentation.id === 'number' && presentation.id <= 4) {
+                    // Keep default logo-bip-21 for existing BIP-21 presentations (id 1-4)
+                    logoHTML = '<div class="logo"></div>';
+                } else if (presentation.id === 10) {
+                    // Use logo-meetup-marseille for Soroban presentation
+                    logoHTML = '<div class="logo" style="background-image: url(\'themes/logo-meetup-marseille.jpg\'); background-size: cover; background-position: center; border-radius: 50%; overflow: hidden;"></div>';
+                } else if (presentation.logo) {
+                    if (presentation.logo === 'github') {
+                        // Use marsu-dev for Git presentations in cards
+                        logoHTML = '<div class="logo marsu-dev"></div>';
+                    } else {
+                        // Use marsu-dev with circular mask for new presentations
+                        logoHTML = '<div class="logo marsu-dev"></div>';
+                    }
+                } else {
+                    // Default to marsu-dev for new presentations without specific logo
+                    logoHTML = '<div class="logo marsu-dev"></div>';
+                }
+
+                const dateText = presentation.date || 'non planifié';
+
                 card.innerHTML = `
                     <div class="card-header">
-                        <div class="logo"></div>
-                        <h2>${presentation.title[currentLang] || presentation.title.fr}</h2>
+                        ${logoHTML}
+                        <h2>${presentation.title[displayLang] || presentation.title.fr}</h2>
                     </div>
-                    <p>${presentation.description[currentLang] || presentation.description.fr}</p>
-                    <div class="meta">${presentation.date || ''}</div>
+                    <p>${presentation.description[displayLang] || presentation.description.fr}</p>
+                    <div class="meta">${dateText}</div>
                 `;
                 grid.appendChild(card);
+                
+                // Store card reference for filtering
+                presentationCards.push({
+                    element: card,
+                    presentation: presentation
+                });
             });
+            
+            // Initial filter (show all)
+            filterPresentations();
         }
     </script>
 </body>

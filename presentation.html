@@ -450,6 +450,233 @@
             outline-offset: 2px;
         }
 
+        /* Git logo (GitHub icon) at the top left for Git presentations (secondary logo) */
+        .logo-git-container {
+            position: fixed;
+            top: 10px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            padding: 0.3em;
+            background-color: rgba(22, 27, 34, 0.8);
+            border-radius: 50%;
+            z-index: 100;
+            opacity: 0.8;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            outline: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.3s;
+        }
+
+        .logo-git-container:hover {
+            opacity: 1;
+        }
+
+        .logo-git-container:focus-visible {
+            outline: 2px solid rgba(247, 147, 26, 0.6);
+            outline-offset: 2px;
+        }
+
+        .logo-git-container i {
+            font-size: 2rem;
+            color: #d9e0e7;
+        }
+
+        /* Marsu-dev logo at the top right for Git presentations (primary logo) */
+        .logo-marsu-dev-container {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            width: 70px;
+            height: 70px;
+            padding: 0.5em;
+            background-image: url("themes/marsu-dev.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            border-radius: 50%;
+            overflow: hidden;
+            z-index: 100;
+            opacity: 0.8;
+            text-decoration: none;
+            border: none;
+            outline: none;
+            display: block;
+            transition: opacity 0.3s;
+        }
+
+        .logo-marsu-dev-container:hover {
+            opacity: 1;
+        }
+
+        .logo-marsu-dev-container:focus-visible {
+            outline: 2px solid rgba(247, 147, 26, 0.6);
+            outline-offset: 2px;
+        }
+
+        /* Liana logo at the top left for Liana presentations */
+        .logo-liana-container {
+            position: fixed;
+            top: 10px;
+            left: 20px;
+            width: 70px;
+            height: 70px;
+            padding: 0.5em;
+            background-image: url("themes/logo-liana.svg");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            z-index: 100;
+            opacity: 0.8;
+            text-decoration: none;
+            border: none;
+            outline: none;
+            display: block;
+            transition: opacity 0.3s;
+        }
+
+        .logo-liana-container:hover {
+            opacity: 1;
+        }
+
+        .logo-liana-container:focus-visible {
+            outline: 2px solid rgba(247, 147, 26, 0.6);
+            outline-offset: 2px;
+        }
+
+        /* Umbrel logo at the top left for Umbrel presentations */
+        .logo-umbrel-container {
+            position: fixed;
+            top: 10px;
+            left: 20px;
+            width: 70px;
+            height: 70px;
+            padding: 0.5em;
+            background-image: url("themes/logo-umbrel.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            border-radius: 50%;
+            overflow: hidden;
+            z-index: 100;
+            opacity: 0.8;
+            text-decoration: none;
+            border: none;
+            outline: none;
+            display: block;
+            transition: opacity 0.3s;
+        }
+
+        .logo-umbrel-container:hover {
+            opacity: 1;
+        }
+
+        .logo-umbrel-container:focus-visible {
+            outline: 2px solid rgba(247, 147, 26, 0.6);
+            outline-offset: 2px;
+        }
+
+        /* Satochip logo (Satoship) at the top left for Satochip presentations */
+        .logo-satochip-container {
+            position: fixed;
+            top: 10px;
+            left: 20px;
+            width: 70px;
+            height: 70px;
+            padding: 0.5em;
+            background-image: url("themes/logo-satoship.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            border-radius: 50%;
+            overflow: hidden;
+            z-index: 100;
+            opacity: 0.8;
+            text-decoration: none;
+            border: none;
+            outline: none;
+            display: block;
+            transition: opacity 0.3s;
+        }
+
+        .logo-satochip-container:hover {
+            opacity: 1;
+        }
+
+        .logo-satochip-container:focus-visible {
+            outline: 2px solid rgba(247, 147, 26, 0.6);
+            outline-offset: 2px;
+        }
+
+        /* Soroban logo (Tsuba) at the top left for Soroban presentations */
+        .logo-soroban-container {
+            position: fixed;
+            top: 10px;
+            left: 20px;
+            width: 70px;
+            height: 70px;
+            padding: 0.2em;
+            background-color: rgba(255, 255, 255, 1);
+            border-radius: 50%;
+            background-image: url("themes/logo-tsuba.png");
+            background-size: 90%;
+            background-repeat: no-repeat;
+            background-position: center;
+            z-index: 100;
+            opacity: 0.9;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            outline: none;
+            display: block;
+            transition: opacity 0.3s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo-soroban-container:hover {
+            opacity: 1;
+            background-color: rgba(255, 255, 255, 1);
+        }
+
+        .logo-soroban-container:focus-visible {
+            outline: 2px solid rgba(247, 147, 26, 0.6);
+            outline-offset: 2px;
+        }
+
+        /* Meetup Marseille logo at the top right for Soroban presentations */
+        .logo-meetup-marseille-container {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            width: 70px;
+            height: 70px;
+            padding: 0.5em;
+            background-image: url("themes/logo-meetup-marseille.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            border-radius: 50%;
+            overflow: hidden;
+            z-index: 100;
+            opacity: 0.8;
+            text-decoration: none;
+            border: none;
+            outline: none;
+            display: block;
+            transition: opacity 0.3s;
+        }
+
+        .logo-meetup-marseille-container:hover {
+            opacity: 1;
+        }
+
+        .logo-meetup-marseille-container:focus-visible {
+            outline: 2px solid rgba(247, 147, 26, 0.6);
+            outline-offset: 2px;
+        }
+
         /* Slide indicator */
         .slide-number {
             color: rgba(247, 147, 26, 0.6);
@@ -582,14 +809,16 @@
         // Key for localStorage based on the file
         const storageKey = filePath ? `reveal-slide-${filePath}` : 'reveal-slide-default';
 
-        // Create the BIP-21 logo on the right (always present)
-        const logoBip21 = document.createElement('a');
-        logoBip21.href = 'https://bip-21.fr/';
-        logoBip21.target = '_blank';
-        logoBip21.rel = 'noopener noreferrer';
-        logoBip21.className = 'logo-bip-21-container';
-        logoBip21.title = 'BIP-21 - Bitcoin Île-de-France Partenaires';
-        document.body.appendChild(logoBip21);
+        // Create the BIP-21 logo on the right (always present, except for Soroban, Git, Liana, Umbrel, Satochip, and hardware-wallets-sparrow)
+        if (!filePath || (!filePath.includes('10-presentation-soroban') && !filePath.includes('05-git-basics') && !filePath.includes('06-git-advanced') && !filePath.includes('07-liana-basics') && !filePath.includes('08-liana-advanced') && !filePath.includes('09-installer-umbrel') && !filePath.includes('11-satochip') && !filePath.includes('12-hardware-wallets-sparrow'))) {
+            const logoBip21 = document.createElement('a');
+            logoBip21.href = 'https://bip-21.fr/';
+            logoBip21.target = '_blank';
+            logoBip21.rel = 'noopener noreferrer';
+            logoBip21.className = 'logo-bip-21-container';
+            logoBip21.title = 'BIP-21 - Bitcoin Île-de-France Partenaires';
+            document.body.appendChild(logoBip21);
+        }
 
         // Change the logo according to the presentation
         if (filePath && filePath.includes('be-bop')) {
@@ -606,8 +835,8 @@
             logoImg.alt = 'be-BOP';
             logoContainer.appendChild(logoImg);
             document.body.appendChild(logoContainer);
-        } else if (filePath && (filePath.includes('sparrow') || filePath.includes('multisig'))) {
-            // Add the Sparrow logo on the left for Sparrow presentations
+        } else if (filePath && filePath.includes('sparrow') && !filePath.includes('multisig')) {
+            // Add the Sparrow logo on the left for Sparrow presentations (but not for multisig which uses BIP-21)
             const logoContainer = document.createElement('a');
             logoContainer.href = 'https://www.sparrowwallet.com/';
             logoContainer.target = '_blank';
@@ -615,6 +844,117 @@
             logoContainer.className = 'logo-sparrow-container';
             logoContainer.title = 'Sparrow Wallet';
             document.body.appendChild(logoContainer);
+        } else if (filePath && filePath.includes('12-hardware-wallets-sparrow')) {
+            // Add the Sparrow logo on the left for hardware wallets with Sparrow presentations
+            const logoSparrow = document.createElement('a');
+            logoSparrow.href = 'https://www.sparrowwallet.com/';
+            logoSparrow.target = '_blank';
+            logoSparrow.rel = 'noopener noreferrer';
+            logoSparrow.className = 'logo-sparrow-container';
+            logoSparrow.title = 'Sparrow Wallet';
+            document.body.appendChild(logoSparrow);
+            
+            // Add the Marsu-dev logo on the right for hardware wallets with Sparrow presentations (primary logo, replaces BIP-21)
+            const logoMarsu = document.createElement('a');
+            logoMarsu.href = 'https://github.com/marsu-dev';
+            logoMarsu.target = '_blank';
+            logoMarsu.rel = 'noopener noreferrer';
+            logoMarsu.className = 'logo-marsu-dev-container';
+            logoMarsu.title = 'Marsu Dev';
+            document.body.appendChild(logoMarsu);
+        } else if (filePath && (filePath.includes('05-git-basics') || filePath.includes('06-git-advanced'))) {
+            // Add the Git logo (GitHub icon) on the left for Git presentations (secondary logo)
+            const logoGit = document.createElement('a');
+            logoGit.href = 'https://git-scm.com/';
+            logoGit.target = '_blank';
+            logoGit.rel = 'noopener noreferrer';
+            logoGit.className = 'logo-git-container';
+            logoGit.title = 'Git';
+            const icon = document.createElement('i');
+            icon.className = 'fab fa-github';
+            logoGit.appendChild(icon);
+            document.body.appendChild(logoGit);
+            
+            // Add the Marsu-dev logo on the right for Git presentations (primary logo, replaces BIP-21)
+            const logoMarsu = document.createElement('a');
+            logoMarsu.href = 'https://github.com/marsu-dev';
+            logoMarsu.target = '_blank';
+            logoMarsu.rel = 'noopener noreferrer';
+            logoMarsu.className = 'logo-marsu-dev-container';
+            logoMarsu.title = 'Marsu Dev';
+            document.body.appendChild(logoMarsu);
+        } else if (filePath && (filePath.includes('07-liana-basics') || filePath.includes('08-liana-advanced'))) {
+            // Add the Liana logo on the left for Liana presentations
+            const logoLiana = document.createElement('a');
+            logoLiana.href = 'https://wizardsardine.com/liana/';
+            logoLiana.target = '_blank';
+            logoLiana.rel = 'noopener noreferrer';
+            logoLiana.className = 'logo-liana-container';
+            logoLiana.title = 'Liana';
+            document.body.appendChild(logoLiana);
+            
+            // Add the Marsu-dev logo on the right for Liana presentations (primary logo, replaces BIP-21)
+            const logoMarsu = document.createElement('a');
+            logoMarsu.href = 'https://github.com/marsu-dev';
+            logoMarsu.target = '_blank';
+            logoMarsu.rel = 'noopener noreferrer';
+            logoMarsu.className = 'logo-marsu-dev-container';
+            logoMarsu.title = 'Marsu Dev';
+            document.body.appendChild(logoMarsu);
+        } else if (filePath && filePath.includes('09-installer-umbrel')) {
+            // Add the Umbrel logo on the left for Umbrel presentations
+            const logoUmbrel = document.createElement('a');
+            logoUmbrel.href = 'https://umbrel.com/umbrelos';
+            logoUmbrel.target = '_blank';
+            logoUmbrel.rel = 'noopener noreferrer';
+            logoUmbrel.className = 'logo-umbrel-container';
+            logoUmbrel.title = 'Umbrel';
+            document.body.appendChild(logoUmbrel);
+            
+            // Add the Marsu-dev logo on the right for Umbrel presentations (primary logo, replaces BIP-21)
+            const logoMarsu = document.createElement('a');
+            logoMarsu.href = 'https://github.com/marsu-dev';
+            logoMarsu.target = '_blank';
+            logoMarsu.rel = 'noopener noreferrer';
+            logoMarsu.className = 'logo-marsu-dev-container';
+            logoMarsu.title = 'Marsu Dev';
+            document.body.appendChild(logoMarsu);
+        } else if (filePath && filePath.includes('10-presentation-soroban')) {
+            // Add the Soroban logo (Tsuba) on the left for Soroban presentations
+            const logoSoroban = document.createElement('a');
+            logoSoroban.href = 'https://medium.com/samourai-wallet/wallet-update-0-99-96-introducing-soroban-adc9a36a7ddb';
+            logoSoroban.target = '_blank';
+            logoSoroban.rel = 'noopener noreferrer';
+            logoSoroban.className = 'logo-soroban-container';
+            logoSoroban.title = 'Soroban';
+            document.body.appendChild(logoSoroban);
+            
+            // Add the Meetup Marseille logo on the right for Soroban presentations (replaces BIP-21)
+            const logoMeetup = document.createElement('a');
+            logoMeetup.href = 'https://marseillebitcoin.org/';
+            logoMeetup.target = '_blank';
+            logoMeetup.rel = 'noopener noreferrer';
+            logoMeetup.className = 'logo-meetup-marseille-container';
+            logoMeetup.title = 'Marseille Bitcoin';
+            document.body.appendChild(logoMeetup);
+        } else if (filePath && filePath.includes('11-satochip')) {
+            // Add the Satochip logo (Satoship) on the left for Satochip presentations
+            const logoSatochip = document.createElement('a');
+            logoSatochip.href = 'https://satochip.io/';
+            logoSatochip.target = '_blank';
+            logoSatochip.rel = 'noopener noreferrer';
+            logoSatochip.className = 'logo-satochip-container';
+            logoSatochip.title = 'Satochip';
+            document.body.appendChild(logoSatochip);
+            
+            // Add the Marsu-dev logo on the right for Satochip presentations (primary logo, replaces BIP-21)
+            const logoMarsu = document.createElement('a');
+            logoMarsu.href = 'https://github.com/marsu-dev';
+            logoMarsu.target = '_blank';
+            logoMarsu.rel = 'noopener noreferrer';
+            logoMarsu.className = 'logo-marsu-dev-container';
+            logoMarsu.title = 'Marsu Dev';
+            document.body.appendChild(logoMarsu);
         }
 
         // Fullscreen mode management
