@@ -120,8 +120,13 @@
             --r-selection-color: #0d1117;
         }
 
+        .reveal .slides {
+            padding-bottom: 50px;
+        }
+
         .reveal .controls {
             color: #f7931a;
+            bottom: 50px !important;
         }
 
         .reveal .progress {
@@ -222,17 +227,34 @@
         /* Creative Commons watermark on slides */
         .cc-watermark {
             position: fixed;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
             font-size: 0.95em;
             letter-spacing: 0.1em;
-            pointer-events: none;
             z-index: 100;
             display: flex;
             align-items: center;
+            justify-content: space-between;
             gap: 0.5em;
             padding: 8px 16px;
+            background-color: #0d1117;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .cc-watermark .footer-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .cc-watermark .footer-center {
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         .cc-watermark img {
@@ -252,44 +274,29 @@
             margin: 0 0.5em;
         }
 
+        .cc-watermark .github-link {
+            color: rgba(247, 147, 26, 0.6);
+            text-decoration: none;
+            font-size: 1.2em;
+            transition: color 0.3s ease, transform 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .cc-watermark .github-link:hover {
+            color: rgba(247, 147, 26, 0.9);
+            transform: scale(1.1);
+        }
+
         .controls-container {
             position: fixed;
-            bottom: 20px;
+            bottom: 50px;
             left: 20px;
             z-index: 1000;
             display: flex;
+            flex-direction: row;
             align-items: center;
             gap: 10px;
-        }
-
-        .language-select-presentation {
-            background: rgba(247, 147, 26, 0.8);
-            color: white;
-            border: 1px solid rgba(247, 147, 26, 0.3);
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-family: 'Courier New', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 12px;
-            transition: background 0.3s;
-            text-transform: uppercase;
-            outline: none;
-            box-sizing: border-box;
-            height: 40px;
-        }
-
-        .language-select-presentation:hover {
-            background: rgba(247, 147, 26, 1);
-            border-color: rgba(247, 147, 26, 0.5);
-        }
-
-        .language-select-presentation:focus {
-            border-color: rgba(247, 147, 26, 0.5);
-        }
-
-        .language-select-presentation option {
-            background: #0d1117;
-            color: #d9e0e7;
         }
 
         .back-button {
@@ -342,34 +349,6 @@
         }
 
         .fullscreen-button:hover {
-            background: rgba(247, 147, 26, 1);
-            border-color: rgba(247, 147, 26, 0.5);
-        }
-
-        .first-slide-button {
-            background: rgba(247, 147, 26, 0.8);
-            color: white;
-            padding: 10px;
-            width: 40px;
-            height: 40px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 18px;
-            transition: background 0.3s;
-            border: 1px solid rgba(247, 147, 26, 0.3);
-            cursor: pointer;
-            font-family: 'Courier New', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-sizing: border-box;
-        }
-
-        .first-slide-button i {
-            font-size: 18px;
-        }
-
-        .first-slide-button:hover {
             background: rgba(247, 147, 26, 1);
             border-color: rgba(247, 147, 26, 0.5);
         }
@@ -473,22 +452,10 @@
 
         /* Slide indicator */
         .slide-number {
-            background: rgba(247, 147, 26, 0.8);
-            color: white;
-            padding: 10px 12px;
-            min-width: 40px;
-            width: auto;
-            height: 40px;
-            border-radius: 5px;
-            font-size: 12px;
+            color: rgba(247, 147, 26, 0.6);
+            font-size: 0.95em;
             font-family: 'Courier New', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            border: 1px solid rgba(247, 147, 26, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-sizing: border-box;
-            text-align: center;
-            line-height: 1.2;
+            letter-spacing: 0.1em;
             white-space: nowrap;
         }
     </style>
@@ -498,23 +465,22 @@
     <div class="reveal-loading"></div>
     <div class="controls-container">
         <a href="index.html" class="back-button" title="Accueil"><i class="fa-solid fa-house"></i></a>
-        <button class="first-slide-button" id="first-slide-button" title="Première slide"><i
-                class="fa-solid fa-backward-step"></i></button>
-        <div class="slide-number" id="slide-number">1 / 1</div>
-        <select class="language-select-presentation" id="language-select-presentation">
-            <option value="fr">FR</option>
-            <option value="en">EN</option>
-            <option value="es">ES</option>
-            <option value="it">IT</option>
-            <option value="de">DE</option>
-        </select>
         <button class="fullscreen-button" id="fullscreen-button" title="Plein écran"><i class="fa-solid fa-expand"
                 id="fullscreen-icon"></i></button>
     </div>
     <div class="cc-watermark">
-        <img src="themes/CC-logo.svg" alt="Creative Commons">
-        <span class="separator">|</span>
-        <span>@marsu-dev</span>
+        <div class="footer-left">
+            <div class="slide-number" id="slide-number">1 / 1</div>
+        </div>
+        <div class="footer-center">
+            <img src="themes/CC-logo.svg" alt="Creative Commons">
+            <span class="separator">|</span>
+            <span>@marsu-dev</span>
+            <span class="separator">|</span>
+            <a href="https://github.com/marsu-dev/workshops" target="_blank" rel="noopener noreferrer" class="github-link">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
     </div>
 
     <div class="reveal">
@@ -675,15 +641,6 @@
 
         fullscreenButton.addEventListener('click', toggleFullscreen);
         document.addEventListener('fullscreenchange', updateFullscreenButton);
-
-        // Button to go to the first slide
-        const firstSlideButton = document.getElementById('first-slide-button');
-        function goToFirstSlide() {
-            if (typeof Reveal !== 'undefined' && Reveal.isReady()) {
-                Reveal.slide(0);
-            }
-        }
-        firstSlideButton.addEventListener('click', goToFirstSlide);
 
         if (!filePath) {
             document.getElementById('slides-container').innerHTML = `
