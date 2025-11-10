@@ -278,6 +278,12 @@
             color: rgba(217, 224, 231, 0.6);
         }
 
+        .presentation-card .meta .presenter {
+            display: block;
+            margin-top: 0.4rem;
+            color: rgba(247, 147, 26, 0.8);
+        }
+
         .empty-state {
             text-align: center;
             color: #d9e0e7;
@@ -808,21 +814,22 @@
             {
                 id: 1,
                 title: {
-                    fr: 'Sparrow Wallet',
-                    en: 'Sparrow Wallet',
-                    es: 'Sparrow Wallet',
-                    it: 'Sparrow Wallet',
-                    de: 'Sparrow Wallet'
+                    fr: 'Bien débuter avec Sparrow',
+                    en: 'Getting Started with Sparrow',
+                    es: 'Empezar con Sparrow',
+                    it: 'Iniziare con Sparrow',
+                    de: 'Erste Schritte mit Sparrow'
                 },
                 description: {
-                    fr: 'Apprenez à créer un wallet, utiliser les passphrases, gérer les comptes, recevoir et envoyer des bitcoins, et maîtriser la sélection de coins.',
-                    en: 'Learn how to create a wallet, use passphrases, manage accounts, receive and send bitcoins, and master coin selection.',
-                    es: 'Aprende a crear una billetera, usar frases de contraseña, gestionar cuentas, recibir y enviar bitcoins, y dominar la selección de monedas.',
-                    it: 'Impara a creare un portafoglio, usare passphrase, gestire account, ricevere e inviare bitcoin e padroneggiare la selezione delle monete.',
-                    de: 'Lernen Sie, eine Wallet zu erstellen, Passphrasen zu verwenden, Konten zu verwalten, Bitcoins zu empfangen und zu senden, und die Münzauswahl zu beherrschen.'
+                    fr: 'Découvrez comment utiliser Sparrow Wallet avec une clé software pour gérer vos bitcoins en toute sécurité. Guide complet pour débutants.',
+                    en: 'Discover how to use Sparrow Wallet with a software key to manage your bitcoins securely. Complete guide for beginners.',
+                    es: 'Descubre cómo usar Sparrow Wallet con una clave de software para gestionar tus bitcoins de forma segura. Guía completa para principiantes.',
+                    it: 'Scopri come usare Sparrow Wallet con una chiave software per gestire i tuoi bitcoin in sicurezza. Guida completa per principianti.',
+                    de: 'Erfahren Sie, wie Sie Sparrow Wallet mit einem Software-Schlüssel verwenden, um Ihre Bitcoins sicher zu verwalten. Vollständiger Leitfaden für Anfänger.'
                 },
                 file: 'presentations/01-sparrow',
                 date: '10 novembre 2025',
+                presenter: '@marsu-dev',
                 tags: ['bitcoin', 'sparrow', 'wallet']
             },
             {
@@ -843,6 +850,7 @@
                 },
                 file: 'presentations/02-multisig',
                 date: '24 novembre 2025',
+                presenter: '@marsu-dev',
                 tags: ['bitcoin', 'sparrow', 'wallet']
             },
             {
@@ -863,6 +871,7 @@
                 },
                 file: 'presentations/03-be-bop',
                 date: '04 décembre 2025',
+                presenter: '@marsu-dev',
                 tags: ['bitcoin']
             },
             {
@@ -883,6 +892,7 @@
                 },
                 file: 'presentations/04-block-transaction',
                 date: '08 décembre 2025',
+                presenter: '@marsu-dev',
                 tags: ['bitcoin']
             },
             {
@@ -903,6 +913,7 @@
                 },
                 file: 'presentations/05-git-basics',
                 date: 'non planifié',
+                presenter: '@marsu-dev',
                 logo: 'github',
                 link: 'https://git-scm.com/',
                 tags: ['code']
@@ -925,6 +936,7 @@
                 },
                 file: 'presentations/06-git-advanced',
                 date: 'non planifié',
+                presenter: '@marsu-dev',
                 logo: 'github',
                 link: 'https://git-scm.com/',
                 tags: ['code']
@@ -947,6 +959,7 @@
                 },
                 file: 'presentations/07-liana-basics',
                 date: 'non planifié',
+                presenter: '@marsu-dev',
                 logo: 'themes/logo-liana.svg',
                 link: 'https://wizardsardine.com/liana/',
                 tags: ['bitcoin', 'wallet']
@@ -969,6 +982,7 @@
                 },
                 file: 'presentations/08-liana-advanced',
                 date: 'non planifié',
+                presenter: '@marsu-dev',
                 logo: 'themes/logo-liana.svg',
                 link: 'https://wizardsardine.com/liana/',
                 tags: ['bitcoin', 'wallet']
@@ -991,6 +1005,7 @@
                 },
                 file: 'presentations/09-installer-umbrel',
                 date: 'non planifié',
+                presenter: '@marsu-dev',
                 logo: 'themes/logo-umbrel.png',
                 link: 'https://umbrel.com/umbrelos',
                 tags: ['bitcoin']
@@ -1013,6 +1028,7 @@
                 },
                 file: 'presentations/10-presentation-soroban',
                 date: 'non planifié',
+                presenter: '@marsu-dev',
                 logo: 'themes/logo-tsuba.png',
                 link: 'https://medium.com/samourai-wallet/wallet-update-0-99-96-introducing-soroban-adc9a36a7ddb',
                 tags: ['bitcoin']
@@ -1035,6 +1051,7 @@
                 },
                 file: 'presentations/11-satochip',
                 date: 'non planifié',
+                presenter: '@marsu-dev',
                 logo: 'marsu-dev',
                 link: 'https://satochip.io/',
                 tags: ['bitcoin', 'wallet']
@@ -1057,6 +1074,7 @@
                 },
                 file: 'presentations/12-hardware-wallets-sparrow',
                 date: 'non planifié',
+                presenter: '@marsu-dev',
                 logo: 'marsu-dev',
                 link: 'https://www.sparrowwallet.com/',
                 tags: ['bitcoin', 'sparrow', 'wallet']
@@ -1115,7 +1133,7 @@
 
         // Available tags
         const availableTags = ['bitcoin', 'sparrow', 'wallet', 'code'];
-        
+
         // Tag labels for different languages
         const tagLabels = {
             fr: {
@@ -1223,7 +1241,7 @@
                 }
 
                 // Check if presentation has ALL active tags (AND logic)
-                const hasAllTags = Array.from(activeFilters).every(tag => 
+                const hasAllTags = Array.from(activeFilters).every(tag =>
                     presentationTags.includes(tag)
                 );
 
@@ -1234,7 +1252,7 @@
                     card.element.classList.add('hidden');
                 }
             });
-            
+
             // Update "All" button state based on active filters
             const allButton = filtersContainer.querySelector('.filter-button[data-tag="all"]');
             if (allButton) {
@@ -1292,7 +1310,7 @@
                 // Pour les anciennes, utiliser la langue sélectionnée avec fallback vers .fr.md
                 let filePath;
                 let displayLang = currentLang;
-                
+
                 // Vérifier si la présentation a des traductions pour la langue sélectionnée
                 let fileLang = currentLang;
                 if (presentation.title[currentLang] && presentation.description[currentLang]) {
@@ -1305,7 +1323,7 @@
                     displayLang = 'fr';
                     fileLang = 'fr';
                 }
-                
+
                 card.href = `presentation.html?file=${encodeURIComponent(filePath)}&lang=${fileLang}`;
                 card.className = 'presentation-card';
 
@@ -1332,6 +1350,7 @@
                 }
 
                 const dateText = presentation.date || 'non planifié';
+                const presenterText = presentation.presenter || '';
 
                 card.innerHTML = `
                     <div class="card-header">
@@ -1339,17 +1358,20 @@
                         <h2>${presentation.title[displayLang] || presentation.title.fr}</h2>
                     </div>
                     <p>${presentation.description[displayLang] || presentation.description.fr}</p>
-                    <div class="meta">${dateText}</div>
+                    <div class="meta">
+                        ${dateText}
+                        ${presenterText ? `<br><span class="presenter">${presenterText}</span>` : ''}
+                    </div>
                 `;
                 grid.appendChild(card);
-                
+
                 // Store card reference for filtering
                 presentationCards.push({
                     element: card,
                     presentation: presentation
                 });
             });
-            
+
             // Initial filter (show all)
             filterPresentations();
         }

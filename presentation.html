@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Présentation - Reveal.js</title>
+    <title>Workshops Bitcoin</title>
     <link rel="icon" type="image/png" href="themes/favicon.png">
 
     <!-- Preload critical CSS to reduce FOUC -->
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/reveal.css" as="style">
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/theme/night.css" as="style">
-    
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/reveal.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/theme/night.css" id="theme">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/highlight/monokai.css">
@@ -25,33 +25,33 @@
                 linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
             background-size: 100px 100px;
         }
-        
+
         html:not(.reveal-ready) body {
             overflow: hidden;
         }
-        
+
         html:not(.reveal-ready) .reveal {
             visibility: hidden;
             opacity: 0;
         }
-        
+
         html:not(.reveal-ready) .controls-container,
         html:not(.reveal-ready) .cc-watermark {
             opacity: 0;
         }
-        
+
         html.reveal-ready .reveal {
             visibility: visible;
             opacity: 1;
             transition: opacity 0.3s ease-in;
         }
-        
+
         html.reveal-ready .controls-container,
         html.reveal-ready .cc-watermark {
             opacity: 1;
             transition: opacity 0.3s ease-in;
         }
-        
+
         /* Loading state */
         .reveal-loading {
             position: fixed;
@@ -68,22 +68,33 @@
             font-family: 'Courier New', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
             font-size: 1.5em;
         }
-        
+
         html.reveal-ready .reveal-loading {
             display: none;
         }
-        
+
         .reveal-loading::after {
             content: '...';
             animation: dots 1.5s steps(4, end) infinite;
         }
-        
+
         @keyframes dots {
-            0%, 20% { content: '.'; }
-            40% { content: '..'; }
-            60%, 100% { content: '...'; }
+
+            0%,
+            20% {
+                content: '.';
+            }
+
+            40% {
+                content: '..';
+            }
+
+            60%,
+            100% {
+                content: '...';
+            }
         }
-        
+
         /* Bitcoin Orange Theme - Adjustments to the Night theme */
         .reveal,
         .reveal-viewport {
@@ -93,7 +104,7 @@
                 linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
             background-size: 100px 100px;
         }
-        
+
         .reveal {
             --r-background-color: #0d1117;
             --r-main-font: 'Courier New', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
@@ -109,9 +120,9 @@
             --r-heading-text-shadow: 0 0 10px rgba(247, 147, 26, 0.35);
             --r-heading-font-weight: bold;
             --r-heading1-text-shadow: 0 0 10px rgba(247, 147, 26, 0.35);
-            --r-heading1-size: 2.5em;
-            --r-heading2-size: 2.5em;
-            --r-heading3-size: 2em;
+            --r-heading1-size: 2.2em;
+            --r-heading2-size: 2.0em;
+            --r-heading3-size: 1.8em;
             --r-heading4-size: 1.6em;
             --r-code-font: 'Courier New', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
             --r-link-color: #01BFFF;
@@ -120,8 +131,41 @@
             --r-selection-color: #0d1117;
         }
 
+        .reveal {
+            width: 100% !important;
+        }
+
         .reveal .slides {
+            width: 100% !important;
             padding-bottom: 50px;
+        }
+
+        .reveal .slides section {
+            width: 85% !important;
+            max-width: 85% !important;
+            padding-left: 7.5% !important;
+            padding-right: 7.5% !important;
+            padding-top: 190px !important;
+            text-align: center;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: flex-start !important;
+            align-items: center !important;
+        }
+
+        .reveal .slides section ul,
+        .reveal .slides section ol {
+            text-align: left;
+            display: inline-block;
+        }
+
+        .reveal .slides section ul ul,
+        .reveal .slides section ol ol,
+        .reveal .slides section ul ol,
+        .reveal .slides section ol ul {
+            display: block;
+            margin-left: 1.5em;
+            margin-top: 0.5em;
         }
 
         .reveal .controls {
@@ -135,16 +179,20 @@
         }
 
         .reveal h1 {
-            color: #ffb347;
-            text-shadow: 0 0 10px rgba(255, 179, 71, 0.35);
+            color: #f7931a;
+            text-shadow: 0 0 10px rgba(247, 147, 26, 0.35);
         }
 
         .reveal h2 {
-            color: #d67a0a;
-            text-shadow: 0 0 10px rgba(214, 122, 10, 0.35);
+            color: rgba(247, 147, 26, 0.95);
+            text-shadow: 0 0 10px rgba(247, 147, 26, 0.33);
         }
 
-        .reveal h3,
+        .reveal h3 {
+            color: rgba(247, 147, 26, 0.90);
+            text-shadow: 0 0 10px rgba(247, 147, 26, 0.32);
+        }
+
         .reveal h4,
         .reveal h5,
         .reveal h6 {
@@ -704,7 +752,8 @@
             <span class="separator">|</span>
             <span>@marsu-dev</span>
             <span class="separator">|</span>
-            <a href="https://github.com/marsu-dev/workshops" target="_blank" rel="noopener noreferrer" class="github-link">
+            <a href="https://github.com/marsu-dev/workshops" target="_blank" rel="noopener noreferrer"
+                class="github-link">
                 <i class="fab fa-github"></i>
             </a>
         </div>
@@ -853,7 +902,7 @@
             logoSparrow.className = 'logo-sparrow-container';
             logoSparrow.title = 'Sparrow Wallet';
             document.body.appendChild(logoSparrow);
-            
+
             // Add the Marsu-dev logo on the right for hardware wallets with Sparrow presentations (primary logo, replaces BIP-21)
             const logoMarsu = document.createElement('a');
             logoMarsu.href = 'https://github.com/marsu-dev';
@@ -874,7 +923,7 @@
             icon.className = 'fab fa-github';
             logoGit.appendChild(icon);
             document.body.appendChild(logoGit);
-            
+
             // Add the Marsu-dev logo on the right for Git presentations (primary logo, replaces BIP-21)
             const logoMarsu = document.createElement('a');
             logoMarsu.href = 'https://github.com/marsu-dev';
@@ -892,7 +941,7 @@
             logoLiana.className = 'logo-liana-container';
             logoLiana.title = 'Liana';
             document.body.appendChild(logoLiana);
-            
+
             // Add the Marsu-dev logo on the right for Liana presentations (primary logo, replaces BIP-21)
             const logoMarsu = document.createElement('a');
             logoMarsu.href = 'https://github.com/marsu-dev';
@@ -910,7 +959,7 @@
             logoUmbrel.className = 'logo-umbrel-container';
             logoUmbrel.title = 'Umbrel';
             document.body.appendChild(logoUmbrel);
-            
+
             // Add the Marsu-dev logo on the right for Umbrel presentations (primary logo, replaces BIP-21)
             const logoMarsu = document.createElement('a');
             logoMarsu.href = 'https://github.com/marsu-dev';
@@ -928,7 +977,7 @@
             logoSoroban.className = 'logo-soroban-container';
             logoSoroban.title = 'Soroban';
             document.body.appendChild(logoSoroban);
-            
+
             // Add the Meetup Marseille logo on the right for Soroban presentations (replaces BIP-21)
             const logoMeetup = document.createElement('a');
             logoMeetup.href = 'https://marseillebitcoin.org/';
@@ -946,7 +995,7 @@
             logoSatochip.className = 'logo-satochip-container';
             logoSatochip.title = 'Satochip';
             document.body.appendChild(logoSatochip);
-            
+
             // Add the Marsu-dev logo on the right for Satochip presentations (primary logo, replaces BIP-21)
             const logoMarsu = document.createElement('a');
             logoMarsu.href = 'https://github.com/marsu-dev';
@@ -994,13 +1043,15 @@
                 hash: true,
                 controls: true,
                 progress: true,
-                center: true,
+                center: false,
                 touch: true,
                 loop: false,
-                transition: 'slide'
+                transition: 'slide',
+                width: '100%',
+                height: '100%'
             }).then(() => {
                 markRevealReady();
-                
+
                 // Function to update the slide number
                 function updateSlideNumber() {
                     const currentSlide = Reveal.getIndices();
@@ -1083,14 +1134,16 @@
                         hash: true,
                         controls: true,
                         progress: true,
-                        center: true,
+                        center: false,
                         touch: true,
                         loop: false,
                         transition: 'slide',
+                        width: '100%',
+                        height: '100%',
                         plugins: [RevealNotes, RevealHighlight]
                     }).then(() => {
                         markRevealReady();
-                        
+
                         // Enable syntax highlighting
                         if (typeof hljs !== 'undefined') {
                             document.querySelectorAll('pre code').forEach((block) => {
@@ -1139,7 +1192,9 @@
                         center: true,
                         touch: true,
                         loop: false,
-                        transition: 'slide'
+                        transition: 'slide',
+                        width: '100%',
+                        height: '100%'
                     }).then(() => {
                         markRevealReady();
                     });

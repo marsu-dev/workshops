@@ -1,260 +1,574 @@
-# Sparrow Wallet
+# Iniziare con Sparrow
 
 10 novembre 2025
 
-Impara a creare un portafoglio, usare passphrase, gestire account, ricevere e inviare bitcoin e padroneggiare la selezione delle monete.
+Scopri come usare Sparrow Wallet con una chiave software per gestire i tuoi bitcoin in sicurezza.
 
 ---
 
 ## Obiettivi
 
-- Creazione portafoglio
-- Passphrase BIP39
-- Gestione account
-- Ricevere e inviare
-- Selezione monete
-
-**Ambiente**: *Signet*
-
----
-
-## Perché Signet?
-
-Rete di test Bitcoin
-
-- Nessun fondo reale
-- Funzionalità identiche a mainnet
-- Faucet disponibili
+- Installare Sparrow Wallet
+- Comprendere le diverse reti Bitcoin
+- Configurare la connessione di rete
+- Creare e proteggere un portafoglio
+- Comprendere conti e indirizzi
+- Ricevere e inviare bitcoin
 
 ---
 
-## Installazione
+## Download di Sparrow
 
-Scaricare dal sito ufficiale
+- Andare sul sito ufficiale
+- Scaricare la versione per il tuo sistema
 
-- macOS / Windows / Linux
-- Verificare la firma GPG
-
----
-
-## Configurazione rete
-
-### Connessioni possibili
-
-1. Server Electrum
-2. Bitcoin Core (RPC)
-3. Server Electrum pubblici
+**Risorsa** : [Download Sparrow](https://sparrowwallet.com/download/)
 
 ---
 
-## Configurazione Signet
+## Verifica di Sparrow
 
-### In Sparrow
+- Garantisce l'autenticità del software
+- Protegge da malware
 
-1. Preferenze → Server / Connessioni
-2. Scegliere rete Signet
-3. Aggiungere server Electrum signet
-4. Verificare "Connesso"
+⚠️ **Importante** : Verificare la firma GPG del file scaricato
 
----
-
-## Creazione del portafoglio
-
-### Tipi disponibili
-
-- Portafoglio standard a chiave singola (BIP39)
-- Descriptors (bech32 native segwit)
+**Risorsa** : [Download Sparrow](https://sparrowwallet.com/download/)
 
 ---
 
-## Creazione - Passi
+## Installazione di Sparrow
 
-1. Menu → Nuovo Portafoglio → Portafoglio Standard
-2. Scegliere un nome
-3. Formato: Native SegWit (P2WPKH)
-4. Generare il seed (12 parole + Passphrase)
-5. Salvare su carta ⚠️
+- **macOS** : Aprire il file .dmg e trascinare Sparrow in Applicazioni
+- **Windows** : Eseguire il file .exe
+- **Linux** : Estrarre l'archivio ed eseguire
 
----
-
-## Passphrase BIP39
-
-### Concetto
-
-Passphrase opzionale
-
-- `seed + passphrase` = portafoglio A
-- `seed solo` = portafoglio B
-
-Indirizzi completamente diversi
+**Risorsa** : [Guida Quick Start Sparrow](https://sparrowwallet.com/docs/quick-start.html)
 
 ---
 
-## Passphrase - Vantaggi
+## Reti Bitcoin
 
-- Difesa in profondità
+### Mainnet
+
+- Rete principale
+- **Bitcoin reali** con valore monetario
+- Transazioni definitive e irreversibili
+
+⚠️ **Usare solo con bitcoin reali**
+
+---
+
+## Reti Bitcoin
+
+### Testnet
+
+- **Bitcoin di test** senza valore
+- Per testare e imparare
+- Faucet disponibili per ottenere bitcoin di test
+
+---
+
+## Reti Bitcoin
+
+### Signet
+
+- **Bitcoin di test** senza valore
+- Più stabile di testnet
+- Ideale per workshop e formazione
+
+---
+
+## Confronto Reti
+
+| Caratteristica | Mainnet     | Testnet  | Signet    |
+| -------------- | ----------- | -------- | --------- |
+| Valore         | Reale       | Nessuno  | Nessuno   |
+| Stabilità      | Molto stabile | Variabile | Stabile   |
+| Uso            | Produzione  | Test     | Formazione |
+
+**Per questo workshop** : Useremo **Signet**
+
+---
+
+## Tipi di Connessione
+
+Sparrow può connettersi in diversi modi:
+
+- **Nodo Bitcoin Core privato**
+- **Server Electrum pubblico**
+- **Server Electrum privato**
+
+---
+
+## Nodo Bitcoin Core
+
+- Il tuo nodo Bitcoin
+- Massima privacy
+- Controllo totale
+
+---
+
+## Server Electrum
+
+**Server Electrum pubblico** :
+- Connessione a un server di terze parti
+- Più semplice da configurare
+
+**Server Electrum privato** :
+- Il tuo server Electrum
+- Buon compromesso privacy/facilità
+
+---
+
+## Connessione di Rete
+
+### Clearnet
+
+- Connessione Internet standard
+- Più veloce
+- Meno privacy
+
+---
+
+## Connessione di Rete
+
+### Tor
+
+- The Onion Router
+- Connessione anonima tramite la rete Tor
+- Più privacy
+- Può essere più lenta
+
+**Risorsa** : [The Tor Project](https://www.torproject.org/)
+
+---
+
+## Configurazione
+
+- Aprire **Preferenze**
+- Andare in **Server** / **Connessioni**
+- Scegliere la rete: Mainnet / Testnet / Signet
+
+---
+
+## Configurazione
+
+- Configurare la connessione:
+  - **Server Pubblico** : Selezionare un server
+  - **Server Privato** : Il tuo server
+- Scegliere **Clearnet** o **Tor**
+- Verificare che lo stato mostri **"Connesso"**
+
+**Risorsa** : [Guida Quick Start Sparrow](https://sparrowwallet.com/docs/quick-start.html)
+
+---
+
+## Creare un Nuovo Portafoglio
+
+- Menu → **Nuovo Portafoglio** → **Portafoglio Standard**
+- Scegliere un nome per il tuo portafoglio
+- Selezionare il formato: **Native SegWit (P2WPKH)**
+
+---
+
+## Formato Native SegWit
+
+- Formato moderno ed economico
+- Indirizzi che iniziano con
+  - `bc1...` (mainnet)
+  - `tb1...` (testnet/signet)
+
+---
+
+## Generare Frase Seed
+
+La **frase seed** è la tua chiave di backup
+
+- Generalmente **12 o 24 parole**
+- Generata casualmente da Sparrow
+
+⚠️ **CRITICO** : Salvare immediatamente su carta
+
+---
+
+## Salvare la Seed
+
+- **Scrivere su carta** (mai su computer/cloud)
+- Verificare che tutte le parole siano corrette
+- Conservare in un luogo sicuro e segreto
+- Non condividere mai con nessuno
+
+⚠️ Perdita della seed = **perdita definitiva di tutti i bitcoin**
+
+---
+
+## Portafoglio Senza Passphrase
+
+- Portafoglio standard solo con seed
+- Più semplice da usare
+- Se la seed è compromessa, i fondi sono accessibili
+
+---
+
+## Portafoglio Con Passphrase
+
 - Protezione aggiuntiva
-- Portafoglio separato con stesso seed
+- `seed + passphrase` = portafoglio diverso da `solo seed`
+- La stessa seed può creare più portafogli diversi
 
 ---
 
-## Passphrase - Rischi
+## Esempio di Passphrase
 
-⚠️ **Perdita della passphrase = perdita dei fondi**
-
-- Conservare separatamente dal seed
-- Gestore sicuro
-- Non mostrare mai pubblicamente
+- Seed : `parola1 parola2 ... parola12`
+- Senza passphrase → Portafoglio A
+- Con passphrase "MioSegreto123" → Portafoglio B
 
 ---
 
-## Passphrase - Demo
+## Attivare Passphrase
 
-1. Attivare Passphrase nelle impostazioni
-2. Inserire una passphrase
-3. Osservare indirizzi diversi
-4. Testare con passphrase diversa
+- Nelle impostazioni del portafoglio
+- Attivare l'opzione **Passphrase**
+- Inserire la tua passphrase
 
----
+**memorizzare o salvare separatamente**
 
-## Gestione degli account
-
-### Concetti
-
-- Account: `m/84'/1'/0'`, `m/84'/1'/1'`
-- Etichette: etichettatura indirizzi/UTXO
-- Solo lettura: via xpub/descriptor
+⚠️ Perdita della passphrase = **perdita dei fondi di questo portafoglio**
 
 ---
 
-## Account - Demo
+## Impostare una Password
 
-1. Creare un secondo account
-2. Etichettare un indirizzo
-3. Importare xpub in solo lettura
-4. Filtrare per etichetta / account
+La **password del portafoglio** protegge l'accesso a Sparrow
 
----
+- Necessaria ogni volta che apri il portafoglio
+- Diversa dalla passphrase
 
-## Ricevere bitcoin
-
-### Tipi di indirizzi
-
-- Ricevi: per ricevere
-- Resto: per il resto reso
-
-Usare nuovi indirizzi per la privacy
+⚠️ Non protegge se qualcuno ha la tua seed
 
 ---
 
-## Ricevi - Demo
+## Buone Pratiche
 
-1. Portafoglio → Ricevi → genera indirizzo
-2. Mostrare codice QR
-3. Usare faucet signet
-4. Osservare la transazione
-
----
-
-## Ricevi - Concetti
-
-- Conferme: numero di blocchi
-- Maturità: gli UTXO devono essere confermati
-- Visualizzazione: txid, vout, importo, conferme
+- Usare una password forte
+- Memorizzarla o conservarla in un gestore di password sicuro
+- Non confonderla con la passphrase
 
 ---
 
-## Inviare bitcoin
+## Concetto di Conto
 
-### Funzionalità
+Un **conto** è una separazione logica nel tuo portafoglio
 
-- Slider commissioni (sats/vB)
-- Replace-By-Fee (RBF)
-- Child-Pays-For-Parent (CPFP)
-- Selezione manuale monete
-
----
-
-## Invia - Demo
-
-1. Portafoglio → Invia → indirizzo destinazione
-2. Inserire importo
-3. Selezionare commissione
-4. Attivare RBF se necessario
-5. Firmare e trasmettere
+- Ogni conto ha i propri indirizzi
+- Utile per organizzare i tuoi fondi
+- Esempio: Conto "Risparmi", Conto "Spese"
 
 ---
 
-## Invia - Verifiche
+## Percorso di Derivazione
 
-⚠️ **Verificare gli output**
+**Percorso di Derivazione**
+- Mainnet
+  - Conto 0 : `m/84'/0'/0'`
+  - Conto 1 : `m/84'/0'/1'`
 
-- Non lasciare resto verso indirizzo non controllato
-- Comprendere l'impatto delle commissioni
-- Anteprima prima di firmare
-
----
-
-## Selezione monete
-
-### Perché controllarla?
-
-- Privacy: evitare la correlazione
-- Commissioni: ottimizzare i costi
-- Consolidamento: raggruppare UTXO
+- Signet
+  - Conto 0 : `m/84'/1'/0'`
+  - Conto 1 : `m/84'/1'/1'`
 
 ---
 
-## Selezione monete - Demo
+## Sotto-conti
 
-1. Aprire scheda Monete/UTXO
-2. Vedere txid, vout, importo, conferme
-3. In Invia → Seleziona Input
-4. Scegliere UTXO manualmente
-
----
-
-## Congela UTXO
-
-Impedire che un UTXO venga selezionato
-
-- Utile per conservare fondi
-- Evitare spesa accidentale
-- Blocco UTXO
+- I sotto-conti permettono un'organizzazione più fine
+- Ogni conto può avere più sotto-conti
+- Utile per separare usi diversi
 
 ---
 
-## Congela - Demo
+## Indirizzi di Ricezione
 
-1. Selezionare un UTXO
-2. Tasto destro → Congela
-3. Verificare in Invia (non selezionato)
-4. Dimostrare Scongela
-
----
-
-## Buone pratiche
-
-✅ **Checklist essenziale**
-
-- Salvare seed + passphrase (separatamente)
-- Nodo personale per privacy
-- Controllo monete e congelamento
-- Etichette sistematiche
-- Verificare gli output
+- Indirizzi per **ricevere** bitcoin
+- Generati automaticamente dal portafoglio
+- Ogni transazione deve usare un **nuovo indirizzo**
 
 ---
 
-## Risorse
+## Indirizzi di Resto
 
-- Documentazione Sparrow Wallet
-- Faucet Signet
-- Documentazione Bitcoin Core signet
+- Indirizzi per il **resto** restituito quando si invia
+- Generati automaticamente dal portafoglio
+
+Se invii **0.1 BTC** ma spendi 1.0 BTC
+
+**0.9 BTC** torna come "resto"
 
 ---
 
-## Domande?
+## Esempio di Indirizzo di Resto
 
-**Workshop BIP-21 - Parte 01: Utilizzi di Sparrow**
+- Hai 1 BTC
+- Invii 0.3 BTC a qualcuno
+- Commissioni : 0.0001 BTC
 
-*Rete Signet - Nessun valore reale*
+**Resto** : 0.6999 BTC torna al tuo indirizzo di resto
+
+---
+
+## Visualizzare Conti in Sparrow
+
+- Aprire il tuo portafoglio
+- Vedere l'elenco dei conti nella barra laterale
+- Fare clic su un conto per vedere i suoi indirizzi
+- Scheda **Indirizzi** : vedere tutti gli indirizzi
+  - ricezione
+  - resto
+
+---
+
+## Generare Indirizzo di Ricezione
+
+- Selezionare il tuo portafoglio
+- Andare alla scheda **Ricevi**
+- Fare clic su "Crea nuovo indirizzo di ricezione"
+  
+**Viene generato un nuovo indirizzo**
+
+---
+
+## Mostrare Codice QR
+
+- Mostrare il **codice QR** per facilitare la condivisione
+- Copiare l'indirizzo per inviarlo
+
+---
+
+## Indirizzi Pre-generati
+
+- Sparrow può generare più indirizzi in anticipo
+- Utile per ricevere più pagamenti
+- Ogni indirizzo rimane unico e valido
+
+---
+
+## Riutilizzo Indirizzo
+
+⚠️ Riutilizzo Indirizzo **Evitare**
+
+- Usare lo stesso indirizzo più volte riduce la privacy
+- Permette di collegare le tue transazioni
+
+Buona pratica **un indirizzo = una transazione**
+
+---
+
+## Ricevere - Dimostrazione
+
+- Portafoglio → **Ricevi**
+- Generare un nuovo indirizzo
+- Copiare l'indirizzo o mostrare il codice QR
+- Usare un faucet Signet per ricevere bitcoin di test
+
+---
+
+## Verificare Ricezione
+
+- **Conferme** : Numero di blocchi minati dalla tua transazione
+- Più conferme = transazione più sicura
+- Osservare la transazione apparire nella scheda **Transazioni**
+
+---
+
+## Numero di Conferme
+
+- Per importi piccoli : 1 conferma spesso sufficiente
+- Per importi grandi : aspettare 6 conferme
+
+---
+
+## Perché Spostare Tra Conti?
+
+- Organizzare i tuoi fondi
+- Separare usi diversi
+- Trasferire a un altro conto nello stesso portafoglio
+
+---
+
+## Come Spostare Tra Conti
+
+- Aprire la scheda **Invia**
+- In **Paga a**, inserire un indirizzo di destinazione
+- Inserire l'importo da trasferire
+- Verificare le commissioni
+- Creare, firmare e trasmettere la transazione
+
+**Nota** : È tecnicamente una transazione normale, ma al tuo stesso portafoglio
+
+---
+
+## Creazione Transazione
+
+- Aprire la scheda **Invia**
+- In **Paga a** :
+  - Inserire l'indirizzo Bitcoin del destinatario
+  - O scansionare un codice QR
+- Inserire l'**importo** da inviare
+  - In BTC o sats
+- Aggiungere un'**etichetta** per identificare la transazione
+
+---
+
+### Configurazione Commissioni
+
+- **Cursore commissioni** : Regolare le commissioni di transazione (sats/vB)
+- Commissioni più alte = conferma più veloce
+- Commissioni più basse = conferma più lenta
+- Sparrow suggerisce commissioni appropriate
+
+---
+
+### Opzioni Avanzate
+
+- **Replace-By-Fee (RBF)** : Permette di aumentare le commissioni dopo l'invio
+- **Selezione monete** : Scegliere manualmente gli UTXO da spendere
+
+---
+
+### Verifica Prima di Firmare
+
+- **Indirizzo di destinazione** : È corretto?
+- **Importo** : È corretto?
+- **Commissioni** : Accettabili?
+
+⚠️ **PASSO CRITICO** - Verificare prima di firmare
+
+---
+
+## Verifica - Indirizzo di Resto
+
+- **Indirizzo di resto** : Verificare che ti appartenga
+  - Deve essere un indirizzo del tuo portafoglio
+
+⚠️ Se l'indirizzo di resto non è tuo, perdi questi bitcoin
+
+---
+
+### Spiegazione Indirizzo di Resto
+
+Quando invii, se spendi più dell'importo da inviare
+
+**Esempio di invio**
+- Hai un UTXO di 1 BTC
+- Invii 0.3 BTC
+- Commissioni : 0.0001 BTC
+
+**Resto** : 0.6999 BTC deve tornare al tuo portafoglio
+
+---
+
+### Regola Indirizzo di Resto
+
+L'indirizzo di resto deve **SEMPRE** essere un indirizzo che controlli.
+
+---
+
+## Firma Transazione
+
+- Dopo la verifica, fare clic su **"Crea Transazione"**
+- Verificare di nuovo tutti i dettagli
+- Fare clic su **"Firma"**
+- Inserire la tua password se richiesta
+- La transazione è firmata con le tue chiavi private
+
+---
+
+### Trasmissione Transazione
+
+- Dopo la firma, fare clic su **"Trasmetti Transazione"**
+- La transazione è inviata alla rete Bitcoin
+- Aspettare conferme
+- Seguire la transazione nella scheda **Transazioni**
+
+---
+
+### Lista di Controllo Prima di Inviare
+
+✅ **Verifiche Finali**
+
+- [ ] Indirizzo di destinazione corretto
+- [ ] Importo corretto
+- [ ] Commissioni accettabili
+- [ ] Indirizzo di resto è mio
+- [ ] Tutti gli output sono verificati
+- [ ] Capisco cosa sto facendo
+
+---
+
+### Buone Pratiche - Backup
+
+- ✅ Frase seed su carta
+- ✅ Passphrase conservata separatamente
+- ✅ Password in un gestore di password sicuro
+- ❌ Mai su computer/cloud/email
+
+---
+
+### Buone Pratiche - Privacy
+
+- ✅ Usare il tuo nodo se possibile
+- ✅ Usare Tor per più anonimato
+- ✅ Un nuovo indirizzo per transazione
+- ✅ Verificare indirizzi di resto
+
+---
+
+### Buone Pratiche - Verifiche
+
+- ✅ Sempre verificare gli output prima di firmare
+- ✅ Verificare l'indirizzo di destinazione
+- ✅ Comprendere le commissioni
+- ✅ Testare prima su Signet/Testnet
+
+---
+
+## Cosa Abbiamo Imparato
+
+- ✅ Installare Sparrow Wallet
+- ✅ Comprendere le reti Bitcoin
+- ✅ Configurare la connessione
+- ✅ Creare un portafoglio
+- ✅ Comprendere i conti
+- ✅ Ricevere bitcoin
+- ✅ Spostare bitcoin tra conti
+- ✅ Inviare bitcoin
+
+---
+
+## Punti Chiave - Sicurezza
+
+⚠️ **Sicurezza**
+
+- Frase seed = accesso totale ai bitcoin
+- Salvare su carta, mai online
+- Sempre verificare indirizzi di resto
+
+---
+
+## Punti Chiave - Privacy
+
+🔒 **Privacy**
+
+- Un indirizzo = una transazione
+- Usare il tuo nodo se possibile
+- Comprendere le implicazioni di ogni azione
+
+---
+
+### Prossimi Workshop
+
+- Multisig
+- Be-BOP
+- Block transaction
