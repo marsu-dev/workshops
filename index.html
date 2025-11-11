@@ -832,7 +832,7 @@
                     de: 'Erfahren Sie, wie Sie Sparrow Wallet mit einem Software-Schlüssel verwenden, um Ihre Bitcoins sicher zu verwalten. Vollständiger Leitfaden für Anfänger.'
                 },
                 file: 'presentations/01-sparrow',
-                date: '10 novembre 2025',
+                date: 'non planifié',
                 presenter: '@marsu-dev',
                 tags: ['bitcoin', 'sparrow', 'wallet']
             },
@@ -1226,6 +1226,14 @@
             filtersContainer.appendChild(button);
         });
 
+        const unscheduledLabels = {
+            fr: 'non planifié',
+            en: 'unscheduled',
+            es: 'no planificado',
+            it: 'non pianificato',
+            de: 'nicht geplant'
+        };
+
         // Store presentation cards for filtering
         let presentationCards = [];
 
@@ -1353,7 +1361,14 @@
                     logoHTML = '<div class="logo marsu-dev"></div>';
                 }
 
-                const dateText = presentation.date || 'non planifié';
+                let dateText = presentation.date;
+                if (!dateText) {
+                    dateText = unscheduledLabels[currentLang] || unscheduledLabels.fr;
+                } else if (typeof dateText === 'object') {
+                    dateText = dateText[currentLang] || dateText.fr || unscheduledLabels[currentLang] || unscheduledLabels.fr;
+                } else if (typeof dateText === 'string' && dateText.trim().toLowerCase() === 'non planifié') {
+                    dateText = unscheduledLabels[currentLang] || unscheduledLabels.fr;
+                }
                 const presenterText = presentation.presenter || '';
 
                 card.innerHTML = `

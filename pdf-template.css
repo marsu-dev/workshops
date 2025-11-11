@@ -1,0 +1,306 @@
+/* ==============================================================
+   PDF TEMPLATE – Bitcoin Theme (Reveal.js style)
+   3 slides per A4 portrait page (physical units, no vh)
+   ==============================================================
+*/
+
+@page {
+    size: A4 portrait;
+    margin: 0;
+}
+
+/* Physical dimensions based on A4 (210 × 297 mm) */
+:root {
+    --page-h: 297mm;
+    --header: 20mm;
+    /* header height */
+    --footer: 10mm;
+    /* footer height */
+    --usable-h: calc(var(--page-h) - var(--header) - var(--footer));
+    --slide-h: calc(var(--usable-h) * 0.30);
+    /* 30% of usable height (fixed height) */
+}
+
+/* --------------------------------------------------------------
+   Base
+-------------------------------------------------------------- */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Courier New', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    background-color: #0d1117;
+    color: #e8e8e8;
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+/* --------------------------------------------------------------
+   Page container
+-------------------------------------------------------------- */
+.page {
+    width: 210mm;
+    height: var(--page-h);
+    padding-top: var(--header);
+    padding-bottom: var(--footer);
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+
+    position: relative;
+    overflow: hidden;
+
+    background-color: #0d1117;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, .04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .04) 1px, transparent 1px);
+    background-size: 100px 100px;
+
+    page-break-after: always;
+    break-after: page;
+}
+
+.page:not(:first-child) {
+    break-before: page;
+    page-break-before: always;
+}
+
+/* --------------------------------------------------------------
+   Header / Footer
+-------------------------------------------------------------- */
+.page::before {
+    content: attr(data-title);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--header);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7em;
+    letter-spacing: 0.1em;
+    color: rgba(247, 147, 26, 0.7);
+    background-color: #0d1117;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    z-index: 2;
+}
+
+.page::after {
+    content: "CC | @marsu-dev";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--footer);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6em;
+    letter-spacing: 0.1em;
+    color: rgba(247, 147, 26, 0.6);
+    background-color: #0d1117;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 2;
+}
+
+/* --------------------------------------------------------------
+   Slides (distributed in available space, accounting for header and footer)
+-------------------------------------------------------------- */
+.slide {
+    flex: 1 1 0;
+    width: 100%;
+    min-height: 0;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 10px 5%;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Separator (displayed only between slides 1-2 and 2-3) */
+.slide:nth-of-type(2)::before,
+.slide:nth-of-type(3)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 5%;
+    right: 5%;
+    height: 2px;
+    background: linear-gradient(to right,
+            transparent,
+            rgba(247, 147, 26, 0.3) 20%,
+            rgba(247, 147, 26, 0.5) 50%,
+            rgba(247, 147, 26, 0.3) 80%,
+            transparent);
+    z-index: 1;
+}
+
+/* Slide numbering */
+.slide::after {
+    content: attr(data-slide-number);
+    position: absolute;
+    bottom: 4px;
+    right: 8px;
+    font-size: 0.6em;
+    color: rgba(247, 147, 26, 0.4);
+    background-color: rgba(13, 17, 23, 0.8);
+    padding: 2px 4px;
+    border-radius: 2px;
+    z-index: 3;
+}
+
+/* --------------------------------------------------------------
+   Logo (in header of each page)
+-------------------------------------------------------------- */
+/* Main logo in body (hidden, used as reference) */
+body>.secondary-logo {
+    display: none;
+    /* Hidden because repeated in each page */
+}
+
+/* Logo in each page */
+.page .secondary-logo {
+    position: absolute;
+    top: 5mm;
+    left: 8mm;
+    width: 14mm;
+    height: auto;
+    z-index: 3;
+    opacity: 0.9;
+    object-fit: contain;
+}
+
+.page .secondary-logo.github-logo {
+    position: absolute;
+    top: 5mm;
+    left: 8mm;
+    width: 14mm;
+    height: 14mm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(22, 27, 34, 0.85);
+    border-radius: 50%;
+    border: 0.3mm solid rgba(255, 255, 255, 0.1);
+    color: #d9e0e7;
+    font-weight: bold;
+    font-size: 4mm;
+}
+
+/* --------------------------------------------------------------
+   Typographie
+-------------------------------------------------------------- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #f7931a;
+    text-shadow: 0 0 10px rgba(247, 147, 26, 0.35);
+    font-weight: bold;
+    text-align: center;
+    margin: 0.2em 0;
+}
+
+h1 {
+    font-size: 1.5em;
+}
+
+h2 {
+    font-size: 1.3em;
+}
+
+h3 {
+    font-size: 1.15em;
+}
+
+p {
+    margin: 6px 0;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+/* Lists */
+ul,
+ol {
+    text-align: left;
+    display: inline-block;
+    margin: 8px 0;
+    padding-left: 1.5em;
+    font-size: 0.85em;
+}
+
+/* Code */
+pre,
+code {
+    background: #2a2a2a;
+    color: #ffb347;
+    font-family: inherit;
+}
+
+pre {
+    padding: 6px 8px;
+    border-radius: 4px;
+    text-align: left;
+    font-size: 0.8em;
+    overflow-x: auto;
+}
+
+/* Tables */
+table {
+    border-collapse: collapse;
+    margin: 6px auto;
+    font-size: 0.8em;
+}
+
+th,
+td {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 4px 8px;
+}
+
+th {
+    background: rgba(247, 147, 26, 0.2);
+    color: #f7931a;
+}
+
+/* Links */
+a {
+    color: #01BFFF;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #ffb347;
+}
+
+/* --------------------------------------------------------------
+   Print
+-------------------------------------------------------------- */
+@media print {
+
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        height: auto;
+    }
+
+    .page {
+        page-break-after: always;
+        break-after: page;
+    }
+
+    .slide {
+        page-break-inside: avoid;
+    }
+}

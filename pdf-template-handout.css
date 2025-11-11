@@ -1,0 +1,355 @@
+/* ==============================================================
+   PDF HANDOUT TEMPLATE – Bitcoin Theme (Reveal.js style)
+   6 slides per A4 portrait page (3 rows × 2 columns) with space for notes
+   ==============================================================
+*/
+
+@page {
+    size: A4 portrait;
+    margin: 0;
+}
+
+/* Physical dimensions based on A4 (210 × 297 mm) */
+:root {
+    --page-h: 297mm;
+    --page-w: 210mm;
+    --header-h: 20mm;
+    /* header height (logo + title) */
+    --footer: 10mm;
+    /* footer height */
+    --slides-h: calc(var(--page-h) - var(--header-h) - var(--footer));
+    /* Available height for slides */
+    --usable-w: calc(var(--page-w) - 3mm);
+    /* Usable width (minus left/right paddings) */
+    --slide-w: calc((var(--usable-w) - 1.5mm) / 2);
+    /* Slide width (2 columns with spacing) */
+    --slide-h: calc((var(--slides-h) - 3mm) / 3);
+    /* Slide height (3 rows with spacing) */
+    --content-h: calc(var(--slide-h) * 0.70);
+    /* 70% of height for slide content */
+    --notes-h: calc(var(--slide-h) * 0.30);
+    /* 30% of slide height for handwritten notes (handout) */
+}
+
+/* --------------------------------------------------------------
+   Base
+-------------------------------------------------------------- */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Courier New', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* --------------------------------------------------------------
+   Page container
+-------------------------------------------------------------- */
+.page {
+    width: var(--page-w);
+    height: var(--page-h);
+    position: relative;
+    overflow: hidden;
+    background-color: #ffffff;
+    box-sizing: border-box;
+
+    page-break-after: always;
+    break-after: page;
+}
+
+.page:not(:first-child) {
+    break-before: page;
+    page-break-before: always;
+}
+
+/* --------------------------------------------------------------
+   Header / Footer
+-------------------------------------------------------------- */
+/* Independent header generated via ::before (like footer) */
+.page::before {
+    content: attr(data-title);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--header-h);
+    padding-left: 25mm;
+    /* Space for logo on the left */
+    padding-right: 1.5mm;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7em;
+    letter-spacing: 0.1em;
+    color: #000000;
+    background-color: #ffffff;
+    border-bottom: 1px solid #cccccc;
+    z-index: 2;
+}
+
+/* Logo in header (separate element, absolute position) */
+.page-logo {
+    position: absolute;
+    top: 0;
+    left: 1.5mm;
+    width: 20mm;
+    height: var(--header-h);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    pointer-events: none;
+}
+
+.page-logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: grayscale(100%);
+    opacity: 0.9;
+}
+
+.page-logo.github-logo {
+    width: 14mm;
+    height: 14mm;
+    margin-top: calc((var(--header-h) - 14mm) / 2);
+    margin-left: 3mm;
+    background-color: #f5f5f5;
+    border-radius: 50%;
+    border: 1px solid #cccccc;
+    color: #000000;
+    font-weight: bold;
+    font-size: 4mm;
+}
+
+.page-logo.github-logo::before {
+    content: 'Git';
+}
+
+.page::after {
+    content: "CC | @marsu-dev";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--footer);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.55em;
+    letter-spacing: 0.1em;
+    color: #000000;
+    background-color: #ffffff;
+    border-top: 1px solid #cccccc;
+    z-index: 2;
+}
+
+/* --------------------------------------------------------------
+   Slides (3 rows × 2 columns with space for notes)
+-------------------------------------------------------------- */
+.page-slides .slide {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    box-sizing: border-box;
+    overflow: hidden;
+    min-height: 0;
+}
+
+/* Slide content (70% of height) */
+.slide-content {
+    flex: 0 0 70%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 6px 4%;
+    box-sizing: border-box;
+    overflow: hidden;
+    background-color: #ffffff;
+    min-height: 0;
+}
+
+/* Space for handwritten notes (30% of height, 80% of width, centered) */
+.slide-notes {
+    flex: 0 0 30%;
+    width: 80%;
+    margin: 0 auto;
+    padding: 4px 2%;
+    box-sizing: border-box;
+    background-color: transparent;
+    font-size: 0.75em;
+    color: #000000;
+    line-height: 1.5em;
+    min-height: 0;
+    position: relative;
+    z-index: 1;
+}
+
+/* Horizontal lines for note-taking */
+.slide-notes-line {
+    width: 80%;
+    height: 0;
+    border-top: 1px solid #cccccc;
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Separator between slides (horizontal and vertical lines managed by grid gap) */
+
+/* Slide numbering */
+.slide::after {
+    content: attr(data-slide-number);
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    font-size: 0.5em;
+    color: #666666;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 2px 4px;
+    border-radius: 2px;
+    z-index: 100;
+    pointer-events: none;
+}
+
+/* --------------------------------------------------------------
+   Logo (in header of each page)
+-------------------------------------------------------------- */
+/* Main logo in body (hidden, used as reference) */
+body>.secondary-logo {
+    display: none;
+    /* Hidden because repeated in each page */
+}
+
+
+/* Slides container with its own grid */
+.page-slides {
+    position: absolute;
+    top: var(--header-h);
+    bottom: var(--footer);
+    left: 1.5mm;
+    right: 1.5mm;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 1.5mm;
+    overflow: hidden;
+}
+
+/* --------------------------------------------------------------
+   Typography
+-------------------------------------------------------------- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #000000;
+    font-weight: bold;
+    text-align: center;
+    margin: 0.15em 0;
+}
+
+h1 {
+    font-size: 1.3em;
+}
+
+h2 {
+    font-size: 1.15em;
+}
+
+h3 {
+    font-size: 1.0em;
+}
+
+p {
+    margin: 4px 0;
+    text-align: center;
+    font-size: 0.85em;
+}
+
+/* Lists */
+ul,
+ol {
+    text-align: left;
+    display: inline-block;
+    margin: 5px 0;
+    padding-left: 1.2em;
+    font-size: 0.8em;
+}
+
+/* Code */
+pre,
+code {
+    background: #f5f5f5;
+    color: #000000;
+    font-family: inherit;
+    border: 1px solid #cccccc;
+}
+
+pre {
+    padding: 4px 6px;
+    border-radius: 3px;
+    text-align: left;
+    font-size: 0.7em;
+    overflow-x: auto;
+}
+
+/* Tables */
+table {
+    border-collapse: collapse;
+    margin: 4px auto;
+    font-size: 0.7em;
+}
+
+th,
+td {
+    border: 1px solid #cccccc;
+    padding: 3px 6px;
+}
+
+th {
+    background: #f0f0f0;
+    color: #000000;
+}
+
+/* Links */
+a {
+    color: #0000ff;
+    text-decoration: underline;
+}
+
+a:hover {
+    color: #0000cc;
+}
+
+/* --------------------------------------------------------------
+   Print
+-------------------------------------------------------------- */
+@media print {
+
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        height: auto;
+    }
+
+    .page {
+        page-break-after: always;
+        break-after: page;
+    }
+
+    .slide {
+        page-break-inside: avoid;
+    }
+}

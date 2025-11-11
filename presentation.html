@@ -884,8 +884,8 @@
             logoImg.alt = 'be-BOP';
             logoContainer.appendChild(logoImg);
             document.body.appendChild(logoContainer);
-        } else if (filePath && filePath.includes('sparrow') && !filePath.includes('multisig')) {
-            // Add the Sparrow logo on the left for Sparrow presentations (but not for multisig which uses BIP-21)
+        } else if (filePath && (filePath.includes('sparrow') || filePath.includes('multisig'))) {
+            // Add the Sparrow logo on the left for Sparrow presentations (including multisig)
             const logoContainer = document.createElement('a');
             logoContainer.href = 'https://www.sparrowwallet.com/';
             logoContainer.target = '_blank';

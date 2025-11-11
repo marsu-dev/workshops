@@ -6,7 +6,11 @@
     "scripts": {
         "start": "live-server --port=8080 --open=/index.html --watch=.",
         "build": "echo 'No build step required for static site'",
-        "deploy": "gh-pages -d ."
+        "deploy": "gh-pages -d .",
+        "generate-pdf": "node generate-pdf.js",
+        "generate-pdf:all": "node generate-pdf.js",
+        "generate-pdf:handout": "node generate-pdf.js --handout",
+        "generate-pdf:handout:all": "node generate-pdf.js --handout"
     },
     "keywords": [
         "reveal.js",
