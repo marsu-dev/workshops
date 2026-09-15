@@ -18,6 +18,7 @@ Presentations are written in Markdown format and stored in the `presentations/` 
 - `10-presentation-soroban.{lang}.md` - Soroban Presentation
 - `11-satochip.{lang}.md` - Satoship
 - `12-hardware-wallets-sparrow.{lang}.md` - Hardware Wallets with Sparrow
+- `13-bip85.{lang}.md` - BIP-85 Deterministic Entropy
 
 Where `{lang}` can be: `fr`, `en`, `es`, `it`, or `de`.
 
