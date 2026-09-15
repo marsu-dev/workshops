@@ -55,6 +55,26 @@ class Bip85PresentationTests(unittest.TestCase):
             for token in coldcard_tokens:
                 self.assertIn(token, content, f"{path}: missing {token}")
 
+    def test_non_custodial_bip39_wallet_examples_are_documented(self):
+        wallet_tokens = (
+            "Phoenix Wallet",
+            "AQUA Wallet",
+            "BULL Wallet",
+            "m/83696968'/39'/0'/12'/10'",
+            "m/83696968'/39'/0'/12'/11'",
+            "m/83696968'/39'/0'/12'/12'",
+            "https://phoenix.acinq.co/content/faq.md",
+            "https://github.com/AquaWallet/aqua-wallet",
+            "https://github.com/SatoshiPortal/bullbitcoin-mobile",
+        )
+        for language in LANGUAGES:
+            path = ROOT / "presentations" / f"13-bip85.{language}.md"
+            content = path.read_text(encoding="utf-8")
+            slides = [part for part in re.split(r"\n(?:---|\*\*\*)\n", content) if part.strip()]
+            self.assertGreaterEqual(len(slides), 29, f"{path}: only {len(slides)} slides")
+            for token in wallet_tokens:
+                self.assertIn(token, content, f"{path}: missing {token}")
+
     def test_index_registers_bip85_in_every_supported_language(self):
         index = (ROOT / "index.html").read_text(encoding="utf-8")
         self.assertIn("id: 13", index)
