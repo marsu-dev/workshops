@@ -28,6 +28,33 @@ class Bip85PresentationTests(unittest.TestCase):
             for token in REQUIRED_TOKENS:
                 self.assertIn(token, content, f"{path}: missing {token}")
 
+    def test_coldcard_q_derivations_and_workflow_are_documented(self):
+        coldcard_tokens = (
+            "COLDCARD Q",
+            "Advanced/Tools > Derive Seeds (BIP-85)",
+            "m/83696968'/39'/0'/12'/0'",
+            "m/83696968'/2'/0'",
+            "m/83696968'/32'/0'",
+            "m/83696968'/128169'/32'/0'",
+            "m/83696968'/128169'/64'/0'",
+            "m/83696968'/707764'/21'/0'",
+            "WIF",
+            "XPRV",
+            "MicroSD",
+            "NFC",
+            "QR",
+            "QWERTY",
+            "https://coldcard.com/docs/bip85/",
+            "https://coldcard.com/docs/bip85-passwords/",
+        )
+        for language in LANGUAGES:
+            path = ROOT / "presentations" / f"13-bip85.{language}.md"
+            content = path.read_text(encoding="utf-8")
+            slides = [part for part in re.split(r"\n(?:---|\*\*\*)\n", content) if part.strip()]
+            self.assertGreaterEqual(len(slides), 22, f"{path}: only {len(slides)} slides")
+            for token in coldcard_tokens:
+                self.assertIn(token, content, f"{path}: missing {token}")
+
     def test_index_registers_bip85_in_every_supported_language(self):
         index = (ROOT / "index.html").read_text(encoding="utf-8")
         self.assertIn("id: 13", index)
